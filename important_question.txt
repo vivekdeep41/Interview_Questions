@@ -1,0 +1,801 @@
+Q.)Explain about yourself and your last project, how deployment is done, which methodology has been followed, and what are the challenges you have faced?
+--> I’ve been a Java backend developer for the past 7.3 years. My last project that I have worked was OpenData project which basically designed for serching purpose such as fetch and display atm information, branch information, product informnation.
+-->Tech& tools used here is java 17, spring boot microservices, JIRA, Gitlab, Github, Gitbash, tomcat Server.
+-->Here, I have involved in Migration, unit testing, fixing bugs and errors
+-->used Jenkins jobs for building, testing and the deployment. application getting deployed in OpenShift cloud
+-->have also involved in incident management.
+-->Agile methodologies has been used
+-->After changing the version from java 11 to 17, lot of things has been changed, lot of dependencies added and removed according to the requirement, and wrote test cases according to it. For writing test cases used github copilot plugin in Intellij IDE.
+-->api gateway used: Nginx: Engine x
+
+
+Common Question ++++++++++
+
+Q.1) diff between put and patch ?
+--> put and patch both are http methods. In case of Put method, existing resource get updated even when single column is changed. But in case of Patch method, only particular column/property will get updated.
+
+Q.2) Different HTTP methods?
+--> POST:  and end user will get 201 http status code
+-->PUT:
+-->PATCH:
+-->DELETE:
+-->GET: 
+
+Q.3) What is Idempotent(or Concept of Idempotent in Rest http method)?
+--> When multiple operation doesnot change the state of server response i.e. server response state remains constant then that method is Idempotent method. Ex: PUT(each time multiple column updated on different time gets the same result that particular row gets updated), DELETE(Row deleted), GET(Fetched row)
+
+Q.4) diff HTTP status code meaning?
+--> status codes with their meanings:
+1xx – Informational Response (These status codes are all about the information received by the server when a request is made).
+2xx – Success (This status code depicts that the request made has been fulfilled by the server and the expected response has been achieved).
+3xx – Redirection (The requested URL is redirected elsewhere).
+4xx – Client Errors (This indicates that the page is not found).
+5xx – Server Errors (A request made by the client but the server fails to complete the request). 
+-->200  (Success/OK): The HTTP status code represents success
+-->301 (Redirected) : the page you have requested has moved to a new URL 
+-->400(Bad Request): request is not understandable by server
+-->401(Unauthorized Error) : http request is not authorised to access server so it need authentication
+-->404(Not Found): when server doesnot found anything with the request
+-->500(Internal Server Error): When there’s an error during a connection to the server, and the requested page cannot be accessed
+-->503(Service Unavailable)
+-->504(Gateway Timeout) 
+
+Q.5) diff between hashcode and equals method?
+-->Hashcode is used to check address of an object and equals method used to check data 
+
+Q.6)how hashmap and hashset restrict duplicacy
+--> using key1.equals(key2) duplicacy is restricted
+
+Q.)equal hashcode contracts?
+
+Q.)Hashset and Arraylist difference
+--> HashSet uses hashtable for storage and Arraylist uses dynamic array for storage.
+--> HashSet doesnot allow duplicate and arraylist allows duplicate element
+--> HashSet provides constant time performance for all operation but ArrayList give constant for search operation.
+--> HashSet allows atmost null value but ArrayList allows multiple null values
+
+Q.)What is Cyclic dependency and how could we resolve it?
+--> A cyclic dependency occurs when two or more beans depend on each other, creating a cycle. For example, Bean A depends on Bean B, and Bean B depends on Bean A. This circular reference can lead to issues during the initialization of beans in a Spring application.
+-->In Spring, when a bean is being created, its dependencies are injected. If these dependencies form a cycle, Spring will enter an infinite loop trying to resolve the beans, eventually leading to an error.
+-->@Component
+	public class BeanA {
+		private final BeanB beanB;
+
+		@Autowired
+		public BeanA(BeanB beanB) {
+			this.beanB = beanB;
+		}
+	}
+
+	@Component
+	public class BeanB {
+		private final BeanA beanA;
+
+		@Autowired
+		public BeanB(BeanA beanA) {
+			this.beanA = beanA;
+		}
+	}
+--> Cyclic dependency could be resolved by using lazy initialization of dependent bean using @Lazy, 
+	@Component
+	public class BeanA {
+		private final BeanB beanB;
+
+		@Autowired
+		public BeanA(@Lazy BeanB beanB) {
+		this.beanB = beanB;
+		}
+	}
+By applying @Lazy to Constructor injection to BeanB, Spring will not attempt to inject BeanB into BeanA until BeanB is actually needed. This breaks the cycle and allows both beans to be created successfully.	
+--> Cyclic dependency can also be resolved by refactoring of bean i.e. creating another bean which would be commonly dependent on other beans
+--> https://www.codeproject.com/Articles/5388111/How-to-Handle-Cyclic-Dependency-Between-Beans-in-S
+
+Q.)Collection used to access list of integers and why it's consider for easy access?
+-->ArrayList, ArrayList uses hashing technique to access which takes O(1) i.e. contant time complexity to access.
+
+Q.)Memory model in garbage collection
+--> In the context of garbage collection, the memory model refers to how memory is managed, allocated, and reclaimed in a programming environment. Garbage collection is a process that automatically identifies and frees memory that is no longer in use, preventing memory leaks and optimizing resource utilization
+
+Q.)how to make object unreferenced in garbage collection
+--> An object is eligible to be garbage collected if its reference variable is lost from the program during execution.Sometimes they are also called unreachable objects. we can collected unreachable object by calling System.gc() method.
+--> System.gc() in Java is a method that suggests to the Java Virtual Machine (JVM) that it should run the garbage collector.
+
+Q.7)how many null key or value allowed in diff diff collection
+-->HashMap
+-->TreeMap, In case of Tree map no null keys are allowed
+-->HashSet, atmost one null values allowed
+-->Treeset, no null values allowed
+-->LinkedList
+-->ArrayList
+
+Q.8)java 8 features
+-->Lambda Expression
+-->Functional Interface(Contains single abstract method)
+-->Streams api
+-->Optional class(class is used for null check in object)
+-->CompletableFuture.supplyAsync()(used to perform multiple task at a time asynchronously)
+
+Q.) Java 11 features
+
+Q.) Java 17 features
+
+Q.9)streams programs
+
+Q.10)parrallel task using completablefuture and its alternative
+-->CompletableFuture is used to execute different task parallely using supplyAsync() method. Every supplied tasks execute parallely and independently on different threads. Task provided in CompletableFuture is high priority task. There is an alternative annotation for performing task parallely using annotation @Async over method definition in Spring boot for low priority task.
+
+Q.11)use of swagger
+-->Swagger, now known as OpenAPI Specification (OAS), is a powerful tool used in Spring Boot to design, document, and test REST APIs by providing a standard way to describe APIs, making them easier for developers and testers to understand and interact with. 
+
+Q.12)reading xsd schema
+jaxb2-maven-plugin plugin used in pom.xml 
+
+Q.13)difference between map and flatmap
+--> map is used to process and transform only single stream i.e. but flatmap is used to process and transform multiple stream and flatten it to single stream
+
+ArrayList al = new ArrayList(); al.add("ramesh");     List<List<Integer> > number = new ArrayList<>();
+
+---> arrayList.stream().map(s -> s.length()).collect(Collectors.toList());
+--->    number.add(Arrays.asList(1, 2));
+        number.add(Arrays.asList(3, 4));
+        number.add(Arrays.asList(5, 6));
+        number.add(Arrays.asList(7, 8));
+      
+        List<Integer> flatList = number.stream().flatMap(list -> list.stream()).collect(Collectors.toList());
+
+Q.14)terminal operation and intermediate operation
+-->intermediate operation means function which return stream as an object, but terminal operation returns objects(Not Streams Objects returns Custom Objects).
+
+intermediate operation -> filter(), map(), flatMap(), distinct(), and sorted()
+terminal operation     -> forEach, collect, reduce, count, and anyMatch
+
+Number of predefined FunctionalInterface:: Function, Predicate, Supplier, Consumer
+
+Q.15)different different annotaion in junit?
+-->@SpringBootTest at class level(Mandatory)
+-->@Test at top of each test method
+-->@setup
+-->@AfterEach
+-->@BeforeEach
+-->@Mock: to mock any object alongwith autowired object
+-->@InjectMock: inject all mocked object(to inject all mocked autowired object)
+-->Assertions.assertEquals(expected,actual) method is used
+
+Q.16)difference between junit, mockito, and wiremock?
+-->junit is a framework for unit testing, latest junit version used is 5 i.e. junit 5. Mockito is a mocking framework provide mock implementation of method and object(mockito uses part of application code). Wiremock is also a mocking framework provide simulator(training purpose) for http based API's(wiremock is external to application code)
+
+Q.17)aws services used in projects
+-->AWS IAM – Identity and Access Management, this service is used to provide security to any resource(this service is basically used to create roles and responsities. It is used to assign permission to any person or any group to access any api or to access AWS features), used in Morgan stanley
+-->EC2: used for horizontal(making pods up and down) and vertical scaling(increasing/decreasing memory size)
+-->S3: used for storage, AWS provides some library and we import it to use it in java class
+
+Q.18)What is horizontal and vertical scaling?
+-->Horizontal scaling is used to increase or decrease number of server.
+-->Vertical scaling is used to increase or decrease resources of an EC2 instances(like CPU, RAM)
+
+Q.)FailFastIterator and FailSafeIterator?
+-->FailFastIterator: When we try to do any modification while iterating elements present in collection without making clone of collection object then it will give ConcurrentModificationException which is known as FailfastIterator. Ex: All Collection object
+--> To avoid ConcurrentModificationException one should use FailSafeIterator.
+-->FailSafeIterator: creating a clone of collection object before iterating and modifying collection object, so that modification is done on cloned object not on original collection object. Ex: ConcurrentHashmap, CopyOnWriteArrayList
+
+Q.) How to optimise code?
+
+
+Q.)Implement code for Comparable and Comparator?
+--> code where sorting is used there we can use Comparable and Comparator.  
+-->Comparable is used for default natural sorting order and Coparator is used for customised sorting order
+--> Comparable have compare() method where two passed parameters are compared with each other. If both parameter are same then return 0, if  
+and Comparator have compareTo() method
+
+
+Spring Boot +++++++++++++++++
+
+Q.19)spring boot design patterns
+--> https://medium.com/@zaghdoudi.mohamed/spring-boot-design-patterns-a-comprehensive-guide-116ccba38054
+
+Q.20)exception handling in spring boot
+-->In spring boot Exception is handled globally, we create GlobalExceptionHandler class and provide @ControllerAdvice at top of class and @ExceptionHandler(value=CustomExampleException.class) at top of method by passing custom Exception class(that extends RunTimeException) as that throws exception with @ResponseStatus(HttpStatus.Not_FOUND) and this method returns a @ResponseBody
+
+Q.21)diff ways of authentication and authorization in spring boot
+--> Used Jwt token for authentication purpose while making an api call and used oauth2 for authorization when api sends request to another api(third party api call)
+
+Q.22)spring-boot-starter-parent uses?
+-->It manages dependency versions, allowing you to omit the <version> tag for dependencies declared in the spring-boot-starter-parent like example web, actuator etc. 
+
+Q.23)only spring boot annotation
+-->@SpringBootApplication= @Configuration + @EnablAutoConfiguration + @ComponentScan
+-->@RestController(@Controller + @ResponseBody)
+-->@RequestMapping(Method=RequestMethod.GET, value="/context-path/endpoint/{id}")
+-->@PathVariable: used in method parameter to pass in url pattern and replace {id}
+-->@RequestBody:(pass it during Postcall)
+-->@Service
+-->@Autowired(used for dependency injection)
+-->@Qualifier
+-->@Repsitory
+-->@Entity
+-->@Table
+-->@Column
+-->@Primary(Spring old concept, bydefault use to inject particular bean class dependency with @autowired)
+-->@RequestParam: This is used to map query parameter with method parameter
+-->@Query(for writing DB native query)
+
+Q.) Use of @EnableAutoConfiguration?
+
+Q.24)stereotype annotation
+--> Annotation which have used same annotation i.e. @Configuration and used on different level of application with different mean. Ex: @Service, @RestController, @Respository, all these three annotation internally call @Configuration but on different level of application
+
+Q.25)@autowired problem and its solution
+--> If any class implement two interface that have same method name then which interface method have to be implemented brings ambiguity to the result. To avoid this amiguity @Qualifier(name ="BeanClassExample.classs") is used with Bean class name. This BeanClass name is provided with @Bean annotation wherever it is defined
+
+Q.26)@primary and @autowired difference
+-->@Primary is used for default Bean class that has to be used with @autowired
+
+Q.27)different ways to add more than one url patterns /login / home / homepage in requestmapping
+-->@RequestMapping(value={"/", " * "}, method=RequestMehod.GET), 
+
+Q.28)how to add compostite(more than column key) primary key 
+-->Add @EmbeddedId at top of custom key object in Entity class and add @Embeddable at top of Key class
+
+**Q.29)how to manage transaction management in jpa
+--> @Transactional annotation in Repository interface on top of method, on the top of class
+
+Q.30)diff between crud repo and jpa repo
+-->crud: can perform read,update,create, and delete operation can be performed
+-->jpa: can perform crud operation along with pagination and sorting
+
+Q.31)how to access two table at a time?
+--> not possible
+
+Q.32)how to improve performace in spring boot?
+-->Disabling autoconfiguration of DB connection (spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration)
+-->Optimize JVM Memory Settings by increasing heap memory size
+-->Enable Garbage collection
+-->Use DB connection pooling to optimize DB performance[Configure HikariCP in application.properties: i.e. (*spring.datasource.hikari.maximum-pool-size=20
+*spring.datasource.hikari.minimum-idle=5
+*spring.datasource.hikari.idle-timeout=30000
+*spring.datasource.hikari.max-lifetime=60000)]
+-->Use indexing for faster queries
+-->Enable Caching in Spring Boot
+-->For heavy computations or long-running tasks, use @Async to execute them asynchronously.
+-->Enable Actuator for Monitoring
+
+Q.33)caching control in spring boot
+-->@EnableCaching alongwith @SpringBootApplication
+-->@Cacheable alongwith @RequestMapping
+ 
+
+Q.35)spring boot profiling
+--> This is used to provide different different properties file based on environments such as local,dev,pre,prod. By default application.properties(local) is considered. To make any other property file active then we have to add spring.profile.active=dev in application.properties file
+
+Q.36)how to load diff diff appplication.properties file in classpath
+-->@PropertySource annotation is used with @Configuration on the top of Bean class
+-->Ex: @PropertySource({"classpath:url.properties","classpath:path.properties"})
+
+Q.37)spring-boot-starter-parent dependency use
+--> manage dependencies versions
+
+Q.38)diff betwen controller and restcontroller
+--> @Controller:method that return view as response
+--> @RestController: Its combination of @Controller + @ResponseBody. Method that returns response body in the form of Json 
+
+Q.39)@async annotation(daemon)
+-->		
+
+MicroService ++++++++++++
+
+Q.40)diff between resttemplate and webclient and feign client
+-->RestTemplate: RestTemplate is a direct way of synchronous http methods communication between microservices
+		RestTemplate restTemplate = new RestTemplate();
+		String response = restTemplate.getForObject(url, String.class);
+
+-->WebClient: WebClient is a non-blocking, reactive client introduced in Spring 5 as part of the WebFlux framework, allowing it to handle many requests simultaneously without waiting for each one to finish. Webclient support streaming of data and suitable for reactive applications.
+		WebClient webClient = WebClient.create("https://jsonplaceholder.typicode.com");
+        
+        Mono<String> responseMono = webClient.get()
+                                             .uri("/posts/1")
+                                             .retrieve()
+                                             .bodyToMono(String.class);
+        responseMono.subscribe(response -> System.out.println("Response: " + response));
+		
+-->FeignClient: Feign Client allows us to define HTTP clients using interfaces and annotations developed by Netflix and integrated with Spring Cloud.
+	* add dependency: spring-cloud-starter-openfeign
+	* Enable Feign Client support in your Spring Boot application by adding the @EnableFeignClients annotation.
+	*Define an interface for the HTTP client and use the @FeignClient annotation.
+		import org.springframework.cloud.openfeign.FeignClient;
+		@FeignClient(name = "jsonplaceholder", url = "https://jsonplaceholder.typicode.com")
+		public interface PostClient {
+			@GetMapping("/posts/{id}")
+			String getPostById(@PathVariable("id") int id);
+		}
+
+Q.41)microservice design patterns
+-->api gateway
+-->saga design pattern
+-->Circuit breaker(It is used to break the circuit and calls fallback method when failed request reaches its threshold value. and various types are: @Retry, @TimeLimiter, @CircuitBreaker)
+-->DB per service pattern
+-->Aggregator design pattern(gather response from multiple microservices and respond back to end user)
+
+Q.42)java 4 pillars with example
+-->Encapsulation: Encapsulation is used for binding data in the form of setter and getter method for security purpose
+-->Polymorphism: Any functionality/method that can take more than one form. DataOverriding(method with same name alongwith different number of parameter or different datatypes overloaded in same class) and DataOverloading(method with same name alongwith same number of datatype and parameter with different returntype in its subclass) is an example of polymorphism
+-->Inheritance: Establishing relationship using extends or implements keyword between classes and interfaces and inheriting parent properties in child classes along with their own properties.
+-->abstraction: that involves hiding complex implementation details and exposing only the essential features or functionalities to the user. Example: Database connection, interface implementation
+
+Q.43)microservice fault tolerance 
+--> Fault tolerance is a term of microservices architecture, that ensures the system remains operational even when individual services fail. In a microservices setup, numerous small services communicate with each other to fulfill their requirements. If one service fails, it can potentially bring down the entire system if not handled properly. 
+Ex. 
+@Retry(If once request fails then bydefault server internally request will be sent), 
+@CircuitBreaker(It is used to break the circuit and calls fallback method when failed request reaches its threshold value),
+@TimeLimiter(Timeout response will be sent), 
+@RateLimiter(no. of requests allowed in a time interval.Ex. in a span of 2s only 2 requests will be served and if third request in that span of time comes will go to fallback method automatically called by server), 
+@BulkHead(no. of request reaches its threshold)
+
+Q.44)saga design pattern
+--> used to manage api transaction in distributed environment(mutiple microservices) and rollback all failed transaction as well.
+
+Q.46)jenkins docker and kubernetes
+-->
+
+Q.48)exeption
+-->
+
+Q.49)how to add custom object as a key in jpa repo?
+--> By overriding equals() and hashcode() methods in custom object then only it will work as a key
+
+Q.50)Which design pattern we have used in project?
+-->Builder design pattern: Based on passed arguments, we create object. Example: Database connection
+-->Proxy design pattern: The proxy pattern provides a placeholder for another Object to control access to it. This pattern is used when we want to provide controlled access to functionality.
+-->Factory Design Pattern: The factory design pattern is used when we have a superclass with multiple subclasses and based on input, we need to return one of the subclasses.
+-->Singleton desing pattern: The Singleton Method Design Pattern ensures a class has only one instance per JVM 
+-->Prototype design pattern: The prototype pattern is used when the Object creation is costly and requires a lot of time and resources, and you have a similar Object already existing. So this pattern provides a mechanism to copy the original Object to a new Object and then modify it according to our needs.
+
+Q.51)How to create singleton design pattern.
+--> The Singleton Method Design Pattern ensures a class has only one instance per JVM and provides a global access point to it.
+
+---> Make all constructor private.
+---> Write a static method that has the return type object of this singleton class. Here, the concept of Lazy initialization is used to write this static method. The instance is stored as a private static variable.
+
+class Person {
+    private static Person person;
+    private Person()
+    {
+        System.out.println("Person is Instantiated.");
+    }
+    public static Person getInstance()
+    {
+        if (person == null)
+            person = new Person();
+        return person;
+    }
+}
+
+Q52) How to create Immutable class in Java?
+-->Immutable class in java means that once an object is created, we cannot change its content.
+
+-->	The class must be declared as final so that child classes can’t be created.
+--> Variable in the class must be declared private so that direct access is not allowed.
+--> Data members in the class must be declared as final so that we can’t change the value of it after object creation.
+--> A parameterized constructor should initialize all the fields performing a deep copy so that data members can’t be modified with an object 		reference.
+-->Deep Copy of objects should be performed in the getter methods to return a copy rather than returning the actual object reference)
+
+final class Student {
+
+    private final String name;
+    private final int regNo;
+    private final Map<String, String> metadata;
+
+    public Student(String name, int regNo, Map<String, String> metadata) {
+
+        this.name = name;
+        this.regNo = regNo;
+
+        Map<String, String> tempMap = new HashMap<>();
+
+        for (Map.Entry<String, String> entry : metadata.entrySet()) {
+            tempMap.put(entry.getKey(), entry.getValue());
+        }
+
+        this.metadata = tempMap;
+    }
+    public String getName() { return name; }
+    public int getRegNo() { return regNo; }
+ 
+    public Map<String, String> getMetadata()    {
+
+        Map<String, String> tempMap = new HashMap<>();
+
+        for (Map.Entry<String, String> entry : this.metadata.entrySet()) {
+            tempMap.put(entry.getKey(), entry.getValue());
+        }
+        return tempMap;
+    }
+}
+
+class GFG {
+
+    public static void main(String[] args)    {
+
+        Map<String, String> map = new HashMap<>();
+        map.put("1", "first");
+        map.put("2", "second");
+
+        Student s = new Student("ABC", 101, map);
+
+        System.out.println(s.getName());
+        System.out.println(s.getRegNo());
+        System.out.println(s.getMetadata());
+
+        // Uncommenting below line causes error
+        // s.regNo = 102;
+
+        map.put("3", "third");
+        // Remains unchanged due to deep copy in constructor
+        System.out.println(s.getMetadata());
+        s.getMetadata().put("4", "fourth");
+        // Remains unchanged due to deep copy in getter
+        System.out.println(s.getMetadata());
+    }
+}
+
+Q.) write single design pattern code
+--> Key Concepts of Singleton Method:
+	Private Constructor: The Singleton class has a private constructor to prevent the instantiation of the class from external entities.
+	Private Instance: The class contains a private static instance of itself.
+	Static Method: A static method is provided to access the instance, and it ensures that only one instance is created if it doesn't exist.
+--> Implementation:
+		import java.io.*;
+		public class Singleton {
+		// Step 1: Private static instance
+			private static Singleton instance;
+
+			// Step 2: Private constructor
+			private Singleton() {
+				// Initialization, if needed
+			}
+
+			// Step 3: Static method to get the instance
+			public static Singleton getInstance() {
+				if (instance == null) {
+					instance = new Singleton();
+				}
+				return instance;
+			}
+		}
+--> Use Case of Singleton:
+	Database Connection Management: Ensuring a single connection instance throughout the application.
+	Logger Classes: Managing a single logger instance to centralize log information.
+--> import java.io.*;
+	public class DatabaseConnectionManager {
+    private static DatabaseConnectionManager instance;
+    private DatabaseConnectionManager() {
+        // Private constructor to prevent external instantiation
+    }
+    public static DatabaseConnectionManager getInstance() {
+        if (instance == null) {
+            instance = new DatabaseConnectionManager();
+        }
+        return instance;
+    }
+    // Additional methods for managing database connections...
+}	
+--> Identifying the Need of singleton design pattern:
+	Problem: Excessive creation of database connection instances.
+	Solution: Implement a Singleton to manage a single instance of the database connection manager.
+
+
+Q.53.) How to manage caching in distributed system in spring boot?
+
+--------------------------------------------------------------------------------
+Java Multithreading Concepts:
+
+Q.54) What is Thread? How many ways we can implement it?
+--> Thread is a light weight subprocess that allows concurrent execution of code within program. Each java program has atleast one thread which is main thread.
+-->priority of main thread is 5. 
+-->Daemon thread is a low priority thread which gets executed in background.
+--> Thread can be created in two ways:
+	a.) by extending Thread class and defining public void run() method and execute task under run method. After that we just need to call start method from an intance of newly created
+		class that extends Thread.
+	b.)	by implementing Runnable interface and defining public void run() method and execute task under run method. After that need to create instance of newly created class that implements Runnable interface and pass that instance to Thread thread = new Thread(instance) and call start method with thread instance.
+
+Q.56) What is Scheduler/ Thread Scheduler?
+--> Scheduler is a JVM component that allocates CPU to multiple thread based on their priority.
+
+
+Q.61) What is Synchronization of thread and how could we achieve it?
+--> Execution of single thread at a time. 
+--> To make use of synchronization of thread we can use synchronised keyword before method if require so that if one thread access that synchronised method then no other thread can access it.
+
+Q.62)Ways to prevent thread execution
+
+Q.63) wait, notify, notifyAll difference in Multithreading
+
+Q.64) difference between sleep and wait
+
+Q.65)How to achieve synchronisation in multithreaded environment?
+--> Adding synchronised keyword before method either static or non-static method. For static method lock applies on object to only method level but in case of static lock applied on object to class level.
+--> Adding synchronised keyword before block of code
+
+
+Q.57) What is thread pool and why we need it?
+--> Thread pool is a pool where multiple threads can perform task parallely in an asynchronous way. In case of Thread, once Thread.start() method gets initiated then that particular created thread cannot be used again, if we try to call the same thread again we will get IllegalThreadStateException. To overcome this exception Thread pool comes into picture.
+--> Java provides the Executor framework which includes the Executor, ExecutorService, and ThreadPoolExecutor classes to manage thread pools.
+
+Q.57) What is ExecutorService and ThreadPoolExecutorService?
+-->ExecutorService is an interface from package java.util.concurrent package that allows to execute multiple thread parallely in an asynchronous way in the background
+-->Executor and Thread Pool are the same thing. ThreadPoolExecutor is an instance of ExecutorService. It creates a thread pool that creates new threads as needed, but will reuse previously constructed threads when they are available. 
+
+Q.58) what are the 3 ways to create ExecutorServices?
+--> 1. Using SingleThreadExecutor: if we want to create one thread.
+		ExecutorService exs1 = Executors.newSingleThreadExecutor();
+--> 2. Using fixed number of thread	like 10 thread at a time
+		ExecutorService exs2 = Executors.newFixedThreadPool(10);
+--> 3. If we want to use scheduling feature while creating thread or delay creating thread for sometime (executing thread periodically)
+		ExecutorService exs1 = Executors.newScheduledThreadPool(10);
+		
+Q.59) How to check whether ExecutionService task finished successfully?
+--> we can use Future to check the return value if Future value return null then task finished successfully		
+	Future future = ExecutorService.submit(new Runnable() {
+		public void run() {
+			System.out.println("");
+		}
+	});
+	future.get();
+	
+Q.60)What is difference between Runnable and Callable interface?
+-->Runnable interface run() method has return type void.
+-->Callable: interface call() method has return type. If we have multiple return values from apossible task then we can use Callable interface.
+	Its a feature in ExecutorService.
+	Future futureFromCallable = ExecutorService.submit(new Callable() {
+		public String call() throws Exception {
+			return "Result";
+		}
+	});
+	System.out.println("futureFromCallable::::"+ futureFromCallable.get());
+	
+Q.)How to handle and manage exception?
+
+Q.) How do you do logging in project?	
+--> Spring boot allows us to see the logs in the console even if we do not provide any specific configuration for it. This is because spring boot uses Logback for its default logging. Spring boot’s internal logging provider is A pache Commons which provides support for Java Util Logging , Log4j2 , and Logback .
+--> Spring boot starters such as spring-boot-starter-web imports spring-boot-starter-logging which automatically pulls in Logback. On running the application and visiting the http://localhost:8080/log page, we can see the following output in the console.
+--> The log levels supported by Spring boot are TRACE , INFO , DEBUG , ERROR , and WARN . By default ERROR, INFO and WARN are printed to the console. It is possible to activate the debug and trace level by adding the following properties in the application.properties file.
+	debug=true 
+	trace=true 
+
+Q.) Multiple bean scope in SpringBootApplication?
+--> Application bean scope: a single object will get created for application lifecycle
+--> Prototype Bean Scope: 	A new bean instance is created every time a bean is requested.
+--> Session Bean Scope: For every session a new bean object will be created
+--> Request Bean scope: For every request a new bean object will be created
+--> Singleton bean scope: a single bean gets created per Spring IOC container
+
+Q.) What is the use of try with resource?
+--> try with resource is used for managing and autoclose open resources. By this we don't need to add extra finally block.
+--> Ex. try(FileOutputStream fos = new FileOutputStream("gfgtextfile.txt")){
+			String text = "Hello World. This is my java program";
+            byte arr[] = text.getBytes();
+            fos.write(arr);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+		
+Q.) Spring bean lifecycle
+--> Spring provides to important methods i.e. public void init() and public void destroy() to every single bean.
+--> name of these two methods could be changed but signature would be same.
+--> Spring IoC (Inversion of Control) Container is the core of the Spring Framework. It creates objects (beans), configures them, injects dependencies, and manages their life cycles.
+--> inside init() method code initialization, loading configuration, connecting database, webservices etc could be added.
+--> destroy() method would perform cleanup activities once spring container destroy the unused object of bean.
+--> E.g., we provide metadata(configuration file) and bean class to Spring IoC container. Whenever we get beans using getBeans(), simply object of bean class will get created(or instantiated) by container and then all the fields value of bean class would be intialized by container. Later init() method will get called and then later we can read using getBeans() and use beans(all variables and methods of bean class). Later after use of beans class, object will be destroyed by container and then destroy() method would be called to perform cleanup activities.
+		
+Q.) How to configure spring beans?
+--> 3 ways to configure spring beans 
+		* xml:
+		* spring interface
+		* annotation
+		
+Q.) When beans will be created/ how many types of beans creation?		
+--> Beans can be created in 2 ways: Eager initialization(When we start application. e.g., Beans with singleton scope) and lazy initialization(when beans are needed. e.g. prototype using @Lazy annotation)
+
+Q.) How request is passed in prototype bean scope?
+--> In the Prototype scope of a Spring bean, a new instance of the bean is created every time it is requested. This means that the request is not 	passed or shared between instances; instead, each request results in a completely separate and independent bean instance.
+
+--> 1. Prototype Scope Behavior
+When a bean is defined with the @Scope("prototype") annotation or <bean scope="prototype"> in XML configuration, Spring does not manage the complete lifecycle of the bean.
+Spring only creates a new instance of the bean when it is explicitly requested (e.g., via ApplicationContext.getBean() or dependency injection).
+After the bean is created and returned, Spring does not track or manage it further. This includes no automatic destruction or cleanup.
+
+Q.) What is double checked locking pattern in singleton design pattern?
+--> https://stackoverflow.com/questions/18093735/double-checked-locking-in-singleton#:~:text=The%20double%20checked%20pattern%20is%20used%20to%20avoid,will%20not%20execute%20the%20locking%20thus%20saving%20resources.
+
+Q.) How parallel streams will work using CompletableFuture and what it will will return in returntype?
+
+Q.) Write your own functional interface to add sum of two numbers and use it in Streams api to return the value?
+--> import java.util.Arrays;
+	import java.util.List;
+	import java.util.stream.Stream;
+
+	@FunctionalInterface
+	interface NumberAdder {
+		int add(int a, int b);
+	}
+
+	public class StreamSumWithFunctionalInterface {
+		public static void main(String[] args) {
+			List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+			NumberAdder adder = (a, b) -> a + b;
+			int sum = numbers.stream().reduce(0, adder::add);
+			System.out.println("Sum: " + sum); // Output: Sum: 15
+			// Or using a lambda directly with reduce
+			int sumWithLambda = numbers.stream().reduce(0, (a, b) -> a + b);
+			System.out.println("Sum with lambda: " + sumWithLambda); // Output: Sum with lambda: 15
+		}
+	}
+
+Q.) What is the use of JPA over JDBC?
+--> JPA and JDBC is an api used to perform database operations
+--> Interfaces and classes in JDBC are: DriverManager, Connection, Statement, PreparedStatement, ResultSet, Driver, DataSources, etc.
+	Intefaces and classes in JPA are: EntityManager, EntityManagerFactory, EntityTransaction, Query, TypedQuery, Persistence, etc.
+--> JDBC follows traditional approach to store data in database using SQL  query, developer have to write queries to perform database operations.
+	JPA follows ORM approach for storing data in database
+--> JDBC is a specification provided by database vendors like MySQL, Oracle, PostGreSQL, etc.
+	JPA is also a specification provided by ORM vendors like JBoss(hibernate), EclipseFoundation(EclipseLink), etc.
+	Whenever we use JPA, we mostly use Hibernate in our application
+--> JDBC provides low level abstraction over database vendors, developer have to write queries.
+	JPA provides high level abstraction over ORM vendors
+--> In case of JDBC, its difficult to switch between different databases
+	In case of JPA, its easy to switch between different ORM vendors.
+--> JDBC is less demanding in industry
+	JPA is more demanding in industry	
+	
+Q.) What is Spring Data JPA/ Springboot Data JPA?
+-->	A new module built by Spring framework with the use of JPA, it means Spring data JPA internally uses JPA only based on what developer perform database operations.
+--> Interfaces and Classes provided by Spring Data JPA (Hierarchy): Repository -> CrudRepository -> PaginationAndSortingRepository -> JPARepository etc.
+--> JPARepository is mostly used Repository which inherit all other Repository.
+	
+
+Q.) What is boxed() method in Java Streams ?
+--> The boxed() method in Java streams is used to convert a stream of primitive types (such as IntStream, LongStream, or DoubleStream) to a stream of their corresponding wrapper classes (Stream<Integer>, Stream<Long>, Stream<Double>). 
+
+Q.) The Ultimate CICD Corporate DevOps Pipeline Project | Real-Time DevOps Project
+--> https://www.youtube.com/watch?v=NnkUGzaqqOc
+
+Q. Builder design pattern?
+--> The builder design pattern is generally used when creating complex objects with numerous optional parameters or when the construction process is step-by-step and potentially involves different configurations. It separates the object's construction from its representation, allowing for the same construction process to create different object variations. 
+--> one object h1 is passing to different methods m1, m2, m3, m4 with different parameters and customizing it.
+--> h1.m1(int a); h1.m2(char c); h1.m3(String s); h1.m4(int b); return h1.build();=> All these statements can be rewritten as
+	return h1.m1(int a).m2(char c).m3(String s).m4(int b).build();
+
+
+Spring Security:---- Reference: https://www.youtube.com/watch?v=oeni_9g7too
+===========================================================================================
+-->Security can be achieved at controller layer just by adding spring-security-web dependency.
+spring-security-web dependency provides login page for verification before accessing page. It also activate session via /logout or using different tab(different window).
+--> To get SessionId:
+ @GetMapping("/")
+ public String getSession(HttpServletRequest request) {
+	return "welcome to this page "+request.getsession().getId();
+ }
+
+--> spring-security-web also provide logout page as well. This spring-security-web provides login info for only one username as user and password is console generated which is only meant for development purpose not for production. We could also set username and password in app.properties file but, it is not recommended. But in case of many user, we need database where multiple user name can be stored.
+
+--> By default spring-web-security provides many different filters i.e. security filters chain before requests goes to controller layer. 
+
+	@Bean
+	public SecurityFilterChain securityFilterchain(HttpSecurity httpSecurity) throws Exception{
+		return httpSecurity
+		.csrf(customizer->customizer.disable())
+		.authorizeHttpRequests(request->request
+			.requestMatchers("register","login")
+			.permitAll()
+			.anyRequest().authenticated())
+		.httpBasic(Customizer.withDefaults())	
+		.sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+		.build();
+	}
+
+--> CSRF(Cross-Site Request Forgery) tokens and JWT (JSON Web Token) are both security mechanisms used in web applications, but they serve different purposes. JWTs are digitally signed token primarily used for stateless(doesnot store session info) authentication and authorization, which can be verified by server ensuring a user is who they claim to be and has the necessary permissions, while CSRF tokens are session-based authenticated token that protect against CSRF attacks, preventing malicious actors from tricking users into performing unwanted actions on a web application. 
+
+--> how to generate csrf token:
+	@GetMapping("/csrf-token")
+	public String getCsrfToken(HttpServletRequest request) {
+	//Attributes can be checked through viewpagesource
+		return (CsrfToken)request.getAttributes("_csrf");
+	}
+--> After receiving csrf-token, it is passed to POST/PUT/Delete headers as key value pair with key:X-CSRF-TOKEN, value as generated CSRF token.
+	Whenever we do any kind of update like PUT,POST or delete, csrf token is required if sping-web-security dependency has been used otherwise, 401 unauthorised access error will be received as response.
+	
+--> Whenever we pass username and password to login form it is actually an unauthenticated object, first unauthenticated object goes through AuthenticationProvider	service bydefault and then it convert it to authenticated object. Customised AuthenticationService can connect to LDAP or to database or to some other service.
+
+-->Customisation of AuthenticationProvider with DB with our own UserDetailsService: Using DAOAuthenticationProvider in Configuration bean class
+	@Bean
+	Public AuthenticationProvider authenticationProvider() {
+		DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+		daoAuthenticationProvider.setPasswordEncoder(new BycryptPasswordEncoder(12));//here 12 means 2^12.
+		daoAuthenticationProvider.setUserDetailsService(UserDetailsService);
+		return daoAuthenticationProvider;
+	}
+
+-->Whenever a user creates an account or logged in and at this time if asked a user for password never ever store the password in plain text. In this case we have to implement Bycrypt when user register or when user logged in. Whenever we register any user data should be stored in database. 
+
+ For registering user, we got request on controller, controller send requests to Service and Service sending request to repository and Repository is connecting with database
+	
+	@RestController
+	public class UserController {
+		@Autowired
+		private UserService userService;
+		
+		@PostMapping("/register")
+		public Users register(@RequestBody Users users)
+		return userService.register(users);
+	}
+	
+	@Service
+	public class UserService {
+		@Autowired
+		private UserRepo repo;
+		
+		private BycryptPasswordEncoder passEncode = new BycryptPasswordEncoder();
+		
+		public Users register(Users users) {
+			users.setPassword(passEncode.encode(users.getPassword()));
+			return repo.save(users);
+		}
+	}
+	
+	@Repository
+	public interface UserRepo extends JPARepository<Users, Integers> {
+		Users findByUsername(String username);
+	}
+	
+=================================================================================================
+=================================================================================================
+ JWT(Java Web Token):
+
+Q.)How to represent sign-in token in data format?
+-->XML and JSON(JavaScript Object Notation)
+-->whenever client and server want to exchange token we can use XML format, but XML format is very bulky. So in place of XML we can instead use JSON.
+-->Using JSON, data can be represented in small format and also it can be encoded to make it more smaller. It is very easy to carry between client and server, then we build some token which will be used on web. In short it would be called as JWT token.
+-->JWT token is an open industry standard method for representing claims securely between two different parties.
+--> Suppose we get a card to maintain secure data between client and server, it contains JWT token which get exchanged. JWT contains payload data(necessary info), header(JWT and security related info), signature(to verify the token is valid between client and server).
+--> whenever we sends signature data basically we send in plain text and it would be received as plain text in sever side, so instead of plain text we could use cipher text(where we encrypt plain-text data using) for sending signature and dycrypt that cipher text using key to convert it to plain text on sever side.
+-->JWT is used basically for accountability not for secracy, but it can be used as secracy as well.
+
+Q.) How to implement JWT token?
+-->JWT implementation is done in different stages which are not part of spring-web-security.
+  a.)We separately add libraries for JWT.
+	JWT API dependency: jjwt api dependency
+	JWT implementation: jjwt implementation dependency
+	Jackson converter dependency(optional, needed if required)	
+	
+  b.)we have to create layers so that When we sends request it goes to Spring-security and then ask AuthenticationProvider to talk to database to verify it. When we send request and want to use JWt token, object of authentication goes to server where AuthenticationManager calls AuthenticationProvider and by default AuthenticationManager handles stuff behind the scene.
+  
+  c.) we write code to generate token, write code  generate secret key to provide signature to generated token
+  d.) After token get generated and provided with signature it need to be validated and should be part of database so that user can get access
+  
+Q.) Difference between JWT and Oauth2?
+--> OAuth 2.0 and JWT (JSON Web Token) are distinct but often used together. OAuth 2.0 is an authorization framework that allows third-party applications to access resources on behalf of a user without requiring the user's credentials. JWT is a token format used for securely transmitting information between parties, often used for authentication and authorization.   
+  
+Q.) What is Client-id and client-secret?
+--> In OAuth 2.0, Client ID and Client Secret are credentials used to identify and authenticate applications when interacting with an API or authorization server. The Client ID is a public identifier, while the Client Secret is a confidential secret, akin to a password, used for secure authentication.   
+--> There are two parties that need to be authenticated: the application and the user.
+	The application is authenticated with the ID and secret, possibly backed up by the callback URL, which should ensure that the recipient of the token is the right one.
+--> Your app’s unique client_id and client_secret are values you need to go through OAuth authorization and receive the access_token and refresh_token to be used in API requests.
+
+--> In general, client IDs are needed only when you want to allow (third-party) client applications to access (your service's) users' data with restricted privileges. In this case, each client application must be given authorization by a user. As a result, your system will need client IDs to know which client application the user has granted permissions to.
+
+Q.) What is String Contsant pool?
+
+Q.)Why is String immutable?
+  
+Q.) How data signature works?(Telusko)
+
+13042005aq&8t
+
+	
+	
+
+
+
+	
+	
+
+
