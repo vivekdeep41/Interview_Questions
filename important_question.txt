@@ -9,7 +9,7 @@ Q.)Explain about yourself and your last project, how deployment is done, which m
 -->api gateway used: Nginx: Engine x
 
 
-Common Question ++++++++++
+Common Question ++++++++++6666
 
 Q.1) diff between put and patch ?
 --> put and patch both are http methods. In case of Put method, existing resource get updated even when single column is changed. But in case of Patch method, only particular column/property will get updated.
