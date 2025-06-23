@@ -1,0 +1,73 @@
+RxJS (Reactive Extensions for JavaScript) is a powerful library for handling 
+asynchronous operations and working with data streams in JavaScript and 
+Angular applications. It's an essential part of the Angular ecosystem and
+ provides a functional and reactive programming paradigm. RxJS is used 
+ extensively to manage events,asynchronous data, and state changes in Angular applications.
+
+1)-Observables:
+
+Observables represent a stream of values that can be emitted(जो समय के साथ उत्सर्जित होते हैं। ) over time.
+They can emit any type of data, including numbers, strings, objects, or even events.
+You can create observables from various sources, such as arrays, events, timers,
+ or custom sources.
+
+2)-Operators:
+
+Operators are functions that allow you to manipulate, transform, and combine observables.
+They are used to perform tasks like filtering values (filter), transforming values (map), 
+merging multiple observables (merge), or switching to a new observable when another emits 
+(switchMap).Operators are "chained" together to create complex data processing pipelines.
+
+3)-Subjects:
+
+Subjects are a type of observable that acts as both a producer (emitter) and
+ a consumer (observer) of values.
+They are commonly used for event handling, inter-component communication, and 
+sharing data between components.
+Subjects come in different flavors, such as Subject, BehaviorSubject, and ReplaySubject.
+
+4)-Subscriptions:
+
+A subscription is an object that represents the connection between an observer and 
+an observable.
+When you subscribe to an observable, you receive a subscription that you can use
+ to unsubscribe when you're done consuming values.
+Unsubscribing is important to prevent memory leaks when components are destroyed.
+
+5)-Async Pipe:
+
+The async pipe is a convenience feature in Angular templates that automatically 
+subscribes to an observable and manages the subscription lifecycle.
+It's commonly used to directly bind observables to the template for rendering dynamic
+ data without manually managing subscriptions.
+
+6)-HTTP Requests:
+
+The HttpClient module returns observables for making HTTP requests in Angular applications.
+You can chain operators to transform responses, handle errors, and process data before 
+using it in your application.
+
+7)-Event Handling:
+
+RxJS is used for handling UI events in a more controlled and functional manner.
+For example, you can debounce user input to prevent frequent requests, 
+throttle actions to limit the frequency of event emissions, and combine multiple
+ events with operators like merge and combineLatest.
+
+8)-State Management:
+
+RxJS is foundational for state management in Angular applications, especially with
+ libraries like NgRx.
+In state management, observables are used to represent and manage the application's 
+data and state changes in a reactive and predictable way.
+
+10)-Error Handling:
+
+Operators like catchError and retry help you handle errors emitted by observables.
+You can provide fallback values, handle errors gracefully, and even retry failed operations.
+
+11)-Hot vs. Cold Observables:
+
+A cold observable starts emitting values only when a subscription is made.
+A hot observable emits values regardless of whether there are subscribers at the moment.
+Examples of hot observables include mouse clicks, timers, and WebSocket connections.

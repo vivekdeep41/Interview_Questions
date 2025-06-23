@@ -1,0 +1,74 @@
+Angular, interceptors are used to intercept and manipulate HTTP requests and responses. They provide a way to add custom behavior to HTTP requests and responses globally in your application. Interceptors are particularly useful for tasks like adding headers, handling authentication, logging, error handling, and more.
+
+Here's how you can create an interceptor in Angular:
+
+Create an Interceptor:
+First, create a new TypeScript class that implements the HttpInterceptor interface. This interface requires you to implement the intercept method, where you can modify the request or response as needed.
+
+typescript
+Copy code
+import { Injectable } from '@angular/core';
+import {
+  HttpInterceptor,
+  HttpRequest,
+  HttpHandler,
+  HttpEvent,
+} from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+@Injectable()
+export class MyInterceptor implements HttpInterceptor {
+  intercept(
+    request: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
+    // Your interceptor logic here
+    return next.handle(request);
+  }
+}
+Provide the Interceptor:
+To use the interceptor, you need to provide it as a provider in the @NgModule decorator of your application module. Add it to the providers array.
+
+typescript
+Copy code
+import { NgModule } from '@angular/core';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MyInterceptor } from './my-interceptor';
+
+@NgModule({
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: MyInterceptor, multi: true },
+    // Other providers
+  ],
+  // Other module configuration
+})
+export class AppModule {}
+The multi: true property indicates that the interceptor might be part of multiple interceptors, so Angular should create a new instance for each.
+
+Customize Interceptor Logic:
+Inside the intercept method, you can modify the request or response as needed. For example, you can add headers, handle authentication tokens, log requests, or handle errors.
+
+typescript
+Copy code
+intercept(
+  request: HttpRequest<any>,
+  next: HttpHandler
+): Observable<HttpEvent<any>> {
+  // Modify the request, e.g., add a header
+  const modifiedRequest = request.clone({
+    setHeaders: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+
+  // Continue with the modified request
+  return next.handle(modifiedRequest);
+}
+Interceptors allow you to encapsulate and reuse common behaviors across multiple HTTP requests in your Angular application. By providing an interceptor, you can apply the defined behavior to every HTTP request and response in your application.
+
+
+
+
+
+
+Regenerate

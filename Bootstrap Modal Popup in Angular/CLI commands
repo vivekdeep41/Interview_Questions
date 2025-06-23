@@ -1,0 +1,55 @@
+CLI commands:
+
+Create a New Project:
+
+ng new project-name: Creates a new Angular project with the given name.
+Generate Components, Modules, Services, etc.:
+
+ng generate component component-name: Generates a new component.
+ng generate module module-name: Generates a new module.
+ng generate service service-name: Generates a new service.
+ng generate directive directive-name: Generates a new directive.
+ng generate pipe pipe-name: Generates a new pipe.
+ng generate class class-name: Generates a new class.
+...and more.
+Development Server:
+
+ng serve: Starts the development server and opens the application in a browser.
+ng serve --open: Opens the application in a browser automatically.
+Build:
+
+ng build: Builds the application for production, generating output files in the dist/ directory.
+ng build --prod: Builds the application with production optimizations.
+Test:
+
+ng test: Runs unit tests using Karma.
+ng e2e: Runs end-to-end tests using Protractor.
+Linting:
+
+ng lint: Runs linting checks on your code using TSLint or ESLint.
+Adding Dependencies:
+
+ng add package-name: Adds a package or library to your project using the Angular Package Format.
+Updating Dependencies:
+
+ng update: Updates the project's dependencies and Angular-related packages.
+Configuration and Project Information:
+
+ng config setting-name: Manages the project configuration.
+ng version: Displays information about the Angular CLI and the installed packages.
+Generating Documentation:
+
+ng doc keyword: Opens the Angular documentation for a specific keyword in the browser.
+Internationalization (i18n):
+
+ng xi18n: Extracts translation messages from the templates and creates an xlf file.
+Component Schematics:
+
+ng generate @schematics/angular:component component-name: Generates a component using Angular Schematics.
+These are just a subset of the available Angular CLI commands. You can run ng help or ng --help to see a full list of commands along with their descriptions and options. The Angular CLI commands greatly simplify various development tasks and streamline the workflow for building Angular applications.
+
+
+
+
+
+Regenerate

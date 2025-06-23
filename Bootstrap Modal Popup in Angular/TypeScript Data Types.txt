@@ -1,0 +1,46 @@
+Number (int, double, long):
+In TypeScript, there's no distinction between int, double, or long as in 
+some other programming languages. TypeScript uses the number type to represent 
+all kinds of numeric values, including integers and floating-point 
+
+1)- numbers.
+ age: number = 25; // Example of an integer
+ price: number = 49.99; // Example of a floating-point number
+
+2)-String:
+To declare a string variable:
+ name: string = "John";
+
+3)-Boolean:
+To declare a boolean variable:
+ isActive: boolean = true;
+
+4)-Array:
+You can declare an array of a specific type:
+ numbers: number[] = [1, 2, 3, 4];
+ names: string[] = ["Alice", "Bob", "Charlie"];
+
+5)-Character (not native to TypeScript):
+Unlike some programming languages, TypeScript doesn't have a native character type.
+ You can use single-character strings instead:
+ firstter: string = "A";
+
+6)-Any (Dynamic Type):
+If you want a variable that can hold any type, you can use the any type:
+ dynamicValue: any = 42;
+dynamicValue = "Hello";
+dynamicValue = true;
+
+7)-let is mostly used within the template to create local variables that are 
+only accessible within that template. If you're dealing with component properties, 
+you generally don't need to use the let keyword in the same way as you do in templates.
+
+8)-TypeScript and Angular, you can use const to declare constant values like strings, numbers, objects, and arrays:
+const PI = 3.14159;
+const appName = 'My Angular App';
+const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday']; 
+
+Remember that TypeScript is a statically typed language, so type declarations are used 
+to enforce type safety and provide better tooling support. The declared type of a variable
+ restricts the kind of values that can be assigned to it. It's a good practice to always 
+ declare types explicitly to make your code more readable and maintainable.

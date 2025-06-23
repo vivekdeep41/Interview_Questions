@@ -1,0 +1,74 @@
+How to make a Bootstrap Modal Popup in Angular 9/8 ?
+Last Updated : 28 Jul, 2021
+In this article, we will see how to use the modal popup component of bootstrap in the Angular application. The addition of bootstrap in our Angular project is an easy process. The modal dialog box can be used to restrict the user to perform particular actions before they return to their normal use of the application. For instance, if the user wants to access some application, then they have to log in to the app before they can access the whole application & we don’t want to give direct access to the app or to any website. Here, the modal window/popup can be a useful thing to restrict to do some changes. As we will grow in this article, we will be able to build our own modal popup.
+
+If you want to use the NgbModal module to open the popup using bootstrap & Angular then please refer to How to open popup using Angular and Bootstrap? 
+We will follow the below steps to make this project.
+
+Step 1: Install the bootstrap using the following command. In order to use the bootstrap, first, we need to install it in our workspace by using the below syntax. The node package manager facilitates us to install various packages that we need in our project.
+
+npm install bootstrap
+Step 2: Include the below line in the styles.css file. Open the src/styles.css file in our project & import the bootstrap.css file by adding the following line of code. This method of adding bootstrap replaces the method that generally we follow in Angular 6. So, we don’t need to add the file explicitly to the styles array of the angular.json file or to the index.html file.
+
+@import '~bootstrap/dist/css/bootstrap.min.css';
+Step 3: Include the below code in the app.component.html file of the application. Add the below code in your app.component.html file. This will help us to render the content of the component class.
+
+
+
+
+<h3>Please click on the below button open popup</h3>
+<hr />
+<button
+  style="margin: 50px; padding: 10px"
+  type="button"
+  class="btn btn-primary"
+  (click)="openPopup()">Show Data
+</button>
+<div
+  class="modal"
+  tabindex="-1"
+  role="dialog"
+  [ngStyle]="{'display':displayStyle}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">GeeksForGeeks</h4>
+      </div>
+      <div class="modal-body">
+        <p>One Stop Solution for all CS problems</p>
+  
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" 
+                (click)="closePopup()">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+Step 4: Include the below code in the app.component.ts file of the application. This ts file will help us to transfer the data from component class to view template ie, HTML template.
+
+import { Component, OnInit } from "@angular/core";
+  
+@Component({
+  selector: "my-app",
+  templateUrl: "./app.component.html",
+})
+export class AppComponent implements OnInit {
+  constructor() {}
+  
+  ngOnInit() {}
+  
+  displayStyle = "none";
+  
+  openPopup() {
+    this.displayStyle = "block";
+  }
+  closePopup() {
+    this.displayStyle = "none";
+  }
+}
+Step 5: Now run the below command to start the application. This command will start transpile the project & will display the below output.
+
+ng serve --open

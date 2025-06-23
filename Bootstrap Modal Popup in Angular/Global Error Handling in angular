@@ -1,0 +1,113 @@
+1. Create a Global Error Handler Service:
+typescript
+Copy code
+// error-handler.service.ts
+
+import { Injectable } from '@angular/core';
+import { Observable, throwError } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class ErrorHandlerService {
+  handleError(error: any): Observable<never> {
+    console.error('Global error handler:', error);
+    return throwError('Something went wrong. Please try again later.');
+  }
+}
+2. Modify the Data Service to Use the Global Error Handler:
+typescript
+Copy code
+// data.service.ts
+
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { ErrorHandlerService } from './error-handler.service';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class DataService {
+  private apiUrl = 'https://jsonplaceholder.typicode.com/posts/1';
+
+  constructor(private http: HttpClient, private errorHandler: ErrorHandlerService) {}
+
+  fetchData(): Observable<any> {
+    return this.http.get(this.apiUrl).pipe(
+      catchError((error) => this.errorHandler.handleError(error))
+    );
+  }
+}
+3. Use the Global Error Handler in the App Module:
+typescript
+Copy code
+// app.module.ts
+
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
+
+import { AppComponent } from './app.component';
+import { ExampleComponent } from './example.component';
+import { DataService } from './data.service';
+import { ErrorHandlerService } from './error-handler.service';
+
+@NgModule({
+  declarations: [AppComponent, ExampleComponent],
+  imports: [BrowserModule, HttpClientModule],
+  providers: [DataService, ErrorHandlerService],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+4. Update the Component to Handle Errors Globally:
+typescript
+Copy code
+// example.component.ts
+
+import { Component } from '@angular/core';
+import { DataService } from './data.service';
+
+@Component({
+  selector: 'app-example',
+  template: `
+    <div *ngIf="data$ | async as data; else loadingOrError">
+      <h2>Data:</h2>
+      <pre>{{ data | json }}</pre>
+    </div>
+
+    <ng-template #loadingOrError>
+      <div>
+        <p *ngIf="loading">Loading...</p>
+        <p *ngIf="error">{{ error }}</p>
+      </div>
+    </ng-template>
+  `,
+})
+export class ExampleComponent {
+  data$!: Observable<any>;
+  loading = true;
+  error: string | null = null;
+
+  constructor(private dataService: DataService) {}
+
+  fetchData(): void {
+    this.loading = true;
+    this.error = null;
+
+    this.data$ = this.dataService.fetchData();
+    this.data$.subscribe(
+      (data) => {
+        this.loading = false;
+        // Handle the data as needed
+        console.log('Data received:', data);
+      },
+      (err) => {
+        this.loading = false;
+        this.error = err;
+      }
+    );
+  }
+}
+Now, any errors thrown by the fetchData method in the DataService will be caught by the global error handler in the ErrorHandlerService. This approach centralizes error handling logic, making it easier to manage and maintain in larger applications.

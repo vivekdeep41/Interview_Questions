@@ -1,0 +1,87 @@
+implementing lazy loading in an Angular application. This example demonstrates how to set up lazy loading for two feature modules, Feature1Module and Feature2Module.
+
+Create Feature Modules:
+Create separate feature modules for the different areas of functionality in your application.
+
+feature1.module.ts:
+
+typescript
+Copy code
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { Feature1Component } from './feature1.component';
+
+const routes: Routes = [
+  { path: '', component: Feature1Component }
+];
+
+@NgModule({
+  declarations: [Feature1Component],
+  imports: [RouterModule.forChild(routes)],
+})
+export class Feature1Module {}
+feature2.module.ts:
+
+typescript
+Copy code
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { Feature2Component } from './feature2.component';
+
+const routes: Routes = [
+  { path: '', component: Feature2Component }
+];
+
+@NgModule({
+  declarations: [Feature2Component],
+  imports: [RouterModule.forChild(routes)],
+})
+export class Feature2Module {}
+Configure App Routes:
+In the app-routing.module.ts file, set up your application routes and configure lazy loading for the feature modules.
+
+typescript
+Copy code
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+
+const routes: Routes = [
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
+  { path: 'feature1', loadChildren: () => import('./feature1/feature1.module').then(m => m.Feature1Module) },
+  { path: 'feature2', loadChildren: () => import('./feature2/feature2.module').then(m => m.Feature2Module) },
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule],
+})
+export class AppRoutingModule {}
+Set Up Main Component:
+In your app.component.html, add navigation links to navigate to the lazy-loaded feature modules.
+
+html
+Copy code
+<nav>
+  <a routerLink="/home">Home</a>
+  <a routerLink="/feature1">Feature 1</a>
+  <a routerLink="/feature2">Feature 2</a>
+</nav>
+<router-outlet></router-outlet>
+App Module:
+Ensure that your main AppModule imports the AppRoutingModule and other necessary modules.
+
+typescript
+Copy code
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [BrowserModule, AppRoutingModule],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+Remember that this is a simplified example, and your actual application might have more complex requirements. The key idea is to create separate feature modules and configure lazy loading for them in the routing configuration.

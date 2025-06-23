@@ -1,0 +1,30 @@
+npm install -g @angular/cli
+
+ng new my-project-name
+ng new routing-app --routing
+
+ng serve
+ng serve --open
+
+ng serve --port 4201
+
+
+ng build --aot
+
+ng build --base-href --aot
+
+ng generate component first
+
+
+ng generate guard your-guard
+
+ng generate module customer --route customer_path --route app.module
+
+ng add @angular/localize
+
+
+================================
+// dev environment build command
+ng build --base-href /my-app/
+// production environment build command
+ng build --prod --base-href /my-app/

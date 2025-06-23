@@ -1,0 +1,73 @@
+Decorators are a fundamental concept in Angular that are used to enhance, modify, or annotate classes, properties, methods, and other program elements. They provide a way to add metadata and behavior to different parts of your application code. Decorators are extensively used in Angular to configure and customize various aspects of components, services, modules, and more.
+
+In Angular, decorators are typically prefixed with the @ symbol and followed by the decorator's name. They are applied using the @decoratorName syntax right above the code element they are decorating.
+
+Here are some common decorators used in Angular:
+
+@Component:
+The @Component decorator is used to define the metadata for a component. It provides configuration options like selector, template, styles, and more.
+
+typescript
+Copy code
+@Component({
+  selector: 'app-my-component',
+  template: '<p>This is my component</p>',
+})
+export class MyComponent {}
+@Directive:
+The @Directive decorator is used to define the metadata for a directive. It's similar to @Component but is used to create custom behaviors that can be applied to elements.
+
+typescript
+Copy code
+@Directive({
+  selector: '[appHighlight]',
+})
+export class HighlightDirective {}
+@Injectable:
+The @Injectable decorator is used to mark a service class as injectable. It's required when you want to inject a service into other components, services, or modules.
+
+typescript
+Copy code
+@Injectable({
+  providedIn: 'root',
+})
+export class MyService {}
+@NgModule:
+The @NgModule decorator is used to define the metadata for an Angular module. It specifies the components, directives, services, and other elements that belong to the module.
+
+typescript
+Copy code
+@NgModule({
+  declarations: [MyComponent, HighlightDirective],
+  providers: [MyService],
+})
+export class MyModule {}
+@Input and @Output:
+The @Input and @Output decorators are used to define input and output properties of components. They enable communication between parent and child components.
+
+typescript
+Copy code
+@Component({
+  selector: 'app-child',
+  template: '<p>{{ value }}</p>',
+})
+export class ChildComponent {
+  @Input() value: string;
+}
+typescript
+Copy code
+@Component({
+  selector: 'app-parent',
+  template: '<app-child [value]="data"></app-child>',
+})
+export class ParentComponent {
+  data = 'Hello from parent';
+}
+Decorators in Angular are a powerful tool that enable you to configure and extend various parts of your application. They contribute to Angular's modular and declarative approach to building applications.
+
+
+
+
+
+
+Regenerate

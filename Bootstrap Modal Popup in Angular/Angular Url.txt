@@ -1,0 +1,5 @@
+Angular version update Url
+
+https://angular.io/guide/updating  --goto this url and under "Best practices" -> "keep up-to-date" click on this 
+  
+  then -> "Update instructions: Angular Update Guide"

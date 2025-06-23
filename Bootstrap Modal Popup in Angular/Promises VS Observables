@@ -1,0 +1,21 @@
+Key differences between Promises and Observables:
+
+1)-Handling Multiple Values:
+
+Promises represent a single value (fulfilled or rejected).
+Observables represent a stream of multiple values over time.
+
+2)-Chaining Operations:
+
+Promises chain using .then() and .catch() methods.
+Observables chain using operators like .map(), .filter(), .mergeMap(), etc.
+
+3)-Cancellations:
+
+Promises do not have built-in cancellation support.
+Observables support cancellations through unsubscribing.
+
+4)-Flexibility and Operators:
+
+Observables provide a wide range of operators to transform, filter,
+ and manipulate data streams.

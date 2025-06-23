@@ -1,0 +1,13 @@
+1)-  ng : File C:\Users\Dell\AppData\Roaming\npm\ng.ps1 cannot be loaded because running scripts is disabled on this system. For more information, see 
+		about_Execution_Policies at https:/go.microsoft.com/fwlink/?LinkID=135170.
+		At line:1 char:1
+		+ ng serve
+		+ ~~
+			+ CategoryInfo          : SecurityError: (:) [], PSSecurityException
+			+ FullyQualifiedErrorId : UnauthorizedAccess
+			
+Ans- Go this location 	C:\Users\Dell\AppData\Roaming\npm\ and remove this file ng.ps1
+     Go this location 	C:\Users\Dell\AppData\Roaming\npm-cache\ and remove all file 
+	 
+2)-  C:\Users\Dell\AppData\Local\Temp\ng-HmqyDv\   i this location we can find error file of angular 
+      angular-errors.log
