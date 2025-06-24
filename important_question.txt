@@ -1,7 +1,14 @@
-Q.)Explain about yourself and your last project, how deployment is done, which methodology has been followed, and what are the challenges you have faced?
---> I’ve been a Java backend developer for the past 7.3 years. My last project that I have worked was OpenData project which basically designed for serching purpose such as fetch and display atm information, branch information, product informnation.
--->Tech& tools used here is java 17, spring boot microservices, JIRA, Gitlab, Github, Gitbash, tomcat Server.
--->Here, I have involved in Migration, unit testing, fixing bugs and errors
+Q.1)Explain about yourself and your last project, how deployment is done, which methodology has been followed, and what are the challenges you have faced?
+--> I’ve been working as a Java, springboot & microservices developer for the past 7.4 years. My last project that I have worked on was OpenData project which basically designed for serching purpose such as fetch and display atm information, branch information, product informnation.
+-->It was a migration project , so didn't get much hands on it.
+-->Tech& tools used here was java 11 and java 17, spring boot microservices, JIRA, Gitlab, Github, Gitbash, tomcat Server.
+-->In this project there were many microservices that has been migrated from java 11 to 17.
+
+Roles and responsibilities:
+Day to day activities:
+First, I have cloned dev project from github into our own created branch and did migration from java 11 to java 17, wrote unit test cases, fixed bugs and errors while adding required dependencies
+-->committed code, and pushed changes to github, and raised pr. Once its approved got merged to master branch.
+-->Once its merged to master branch, jenkins pipeline started
 -->used Jenkins jobs for building, testing and the deployment. application getting deployed in OpenShift cloud
 -->have also involved in incident management.
 -->Agile methodologies has been used
@@ -11,20 +18,20 @@ Q.)Explain about yourself and your last project, how deployment is done, which m
 
 Common Question ++++++++++
 
-Q.1) diff between put and patch ?
+Q.2) diff between put and patch ?
 --> put and patch both are http methods. In case of Put method, existing resource get updated even when single column is changed. But in case of Patch method, only particular column/property will get updated.
 
-Q.2) Different HTTP methods?
---> POST:  and end user will get 201 http status code
+Q.3) Different HTTP methods?
+--> POST:  is used to send data to a server to create/update a resource where end user will get 201 http status code. POST requests are never cached 
 -->PUT:
 -->PATCH:
 -->DELETE:
--->GET: 
+-->GET: is used to fetch resource from sever
 
-Q.3) What is Idempotent(or Concept of Idempotent in Rest http method)?
---> When multiple operation doesnot change the state of server response i.e. server response state remains constant then that method is Idempotent method. Ex: PUT(each time multiple column updated on different time gets the same result that particular row gets updated), DELETE(Row deleted), GET(Fetched row)
+Q.4) What is Idempotent(or Concept of Idempotent in Rest http method)?
+--> When multiple operation doesnot change the state of server response i.e. server response state remains constant then that method is Idempotent method. Ex: PUT(each time multiple column updated on 7 time gets the same result that particular row gets updated), DELETE(Row deleted), GET(Fetched row)
 
-Q.4) diff HTTP status code meaning?
+Q.5) diff HTTP status code meaning?
 --> status codes with their meanings:
 1xx – Informational Response (These status codes are all about the information received by the server when a request is made).
 2xx – Success (This status code depicts that the request made has been fulfilled by the server and the expected response has been achieved).
@@ -32,35 +39,59 @@ Q.4) diff HTTP status code meaning?
 4xx – Client Errors (This indicates that the page is not found).
 5xx – Server Errors (A request made by the client but the server fails to complete the request). 
 -->200  (Success/OK): The HTTP status code represents success
+-->201: created
 -->301 (Redirected) : the page you have requested has moved to a new URL 
--->400(Bad Request): request is not understandable by server
--->401(Unauthorized Error) : http request is not authorised to access server so it need authentication
+-->400(Bad Request): request is not understandable by server, bad type request
+-->401 & 403(Unauthenticated & Unauthorized Error respectively) : http request is not authorised to access server so it need authentication
 -->404(Not Found): when server doesnot found anything with the request
+-->405: method not allowed
 -->500(Internal Server Error): When there’s an error during a connection to the server, and the requested page cannot be accessed
 -->503(Service Unavailable)
 -->504(Gateway Timeout) 
 
-Q.5) diff between hashcode and equals method?
+Q.)AUtowire by constructor vs properties
+
+Q.)@Mockito
+
+Q.)How to resolve 404 not found error?
+-->You can resolve a 404 Not Found error on your website by creating a 301 redirect to the new page, or by recovering the old page if it has been deleted. If visitors report seeing a 404 Not Found error due to making common URL misspellings, you might create a 301 redirect to the correct URL.
+
+Q.6) Why Data transfer is recommended using DTO(Data Transfer Object)?
+--> DTO is a simple POJO class which is generally used for data transfer while setting values to its property in service layer after receiving data from database and then sent it to controller layer.
+
+Q.7) what is alternative of @Data?
+-->@Data is combination of @Getter + @Setter + @RequiredArgsConstructor + @toString + @EqualsAndHashCode except @NoargsConstructor and @AllArgsConstructor
+
+Q.8) Difference between @AllArgsConstructor and @RequiredArgsConstructor
+--> @AllArgsConstructor  to generate a constructor for all of your class's fields and use @RequiredArgsConstructor to generate a constructor for all class's fields that are marked as final and non null.
+
+Q.9) diff between hashcode and equals method?
 -->Hashcode is used to check address of an object and equals method used to check data 
 
-Q.6)how hashmap and hashset restrict duplicacy
+Q.10)how hashmap and hashset restrict duplicacy
 --> using key1.equals(key2) duplicacy is restricted
 
-Q.)equal hashcode contracts?
+Q.11)equal hashcode contracts?
 
-Q.)Hashset and Arraylist difference
+Q.12)Hashset and Arraylist difference
 --> HashSet uses hashtable for storage and Arraylist uses dynamic array for storage.
 --> HashSet doesnot allow duplicate and arraylist allows duplicate element
 --> HashSet provides constant time performance for all operation but ArrayList give constant for search operation.
---> HashSet allows atmost null value but ArrayList allows multiple null values
+--> HashSet allows atmost null value(max 1) but ArrayList allows multiple null values
 
-Q.)What is Cyclic dependency and how could we resolve it?
+Q.13)ArrayList & LinkedList difference:
+--> ArrayList uses dynamic array, but Linked list uses doubly linked list structure
+--> ArrayList is preffered for frequest search operation, but LinkedList is preferred for modification or deletion operation if done from middle.
+
+
+Q.14)What is Cyclic dependency and how could we resolve it?
 --> A cyclic dependency occurs when two or more beans depend on each other, creating a cycle. For example, Bean A depends on Bean B, and Bean B depends on Bean A. This circular reference can lead to issues during the initialization of beans in a Spring application.
 -->In Spring, when a bean is being created, its dependencies are injected. If these dependencies form a cycle, Spring will enter an infinite loop trying to resolve the beans, eventually leading to an error.
 -->@Component
 	public class BeanA {
 		private final BeanB beanB;
 
+		//Constructor Autowiring 
 		@Autowired
 		public BeanA(BeanB beanB) {
 			this.beanB = beanB;
@@ -86,17 +117,17 @@ Q.)What is Cyclic dependency and how could we resolve it?
 		this.beanB = beanB;
 		}
 	}
-By applying @Lazy to Constructor injection to BeanB, Spring will not attempt to inject BeanB into BeanA until BeanB is actually needed. This breaks the cycle and allows both beans to be created successfully.	
+By applying @Lazy to Constructor injection to BeanB, Spring will not attempt to inject BeanB into BeanA until BeanB is actually needed. This breaks the cycle and allows both beans to be created successzfully.	
 --> Cyclic dependency can also be resolved by refactoring of bean i.e. creating another bean which would be commonly dependent on other beans
 --> https://www.codeproject.com/Articles/5388111/How-to-Handle-Cyclic-Dependency-Between-Beans-in-S
 
-Q.)Collection used to access list of integers and why it's consider for easy access?
+Q.15)Collection used to access list of integers and why it's consider for easy access?
 -->ArrayList, ArrayList uses hashing technique to access which takes O(1) i.e. contant time complexity to access.
 
-Q.)Memory model in garbage collection
+Q.16)Memory model in garbage collection
 --> In the context of garbage collection, the memory model refers to how memory is managed, allocated, and reclaimed in a programming environment. Garbage collection is a process that automatically identifies and frees memory that is no longer in use, preventing memory leaks and optimizing resource utilization
 
-Q.)how to make object unreferenced in garbage collection
+Q.17)how to make object unreferenced in garbage collection
 --> An object is eligible to be garbage collected if its reference variable is lost from the program during execution.Sometimes they are also called unreachable objects. we can collected unreachable object by calling System.gc() method.
 --> System.gc() in Java is a method that suggests to the Java Virtual Machine (JVM) that it should run the garbage collector.
 
@@ -120,6 +151,9 @@ Q.) Java 11 features
 Q.) Java 17 features
 
 Q.9)streams programs
+
+Q.) What is ApplicationContext in spring?
+--> The ApplicationContext is the central component responsible for instantiating, configuring, and managing the lifecycle of your application's objects, known as "beans." It handles dependency injection, ensuring that beans have all the necessary dependencies injected into them.
 
 Q.10)parrallel task using completablefuture and its alternative
 -->CompletableFuture is used to execute different task parallely using supplyAsync() method. Every supplied tasks execute parallely and independently on different threads. Task provided in CompletableFuture is high priority task. There is an alternative annotation for performing task parallely using annotation @Async over method definition in Spring boot for low priority task.
@@ -173,6 +207,26 @@ Q.18)What is horizontal and vertical scaling?
 -->Horizontal scaling is used to increase or decrease number of server.
 -->Vertical scaling is used to increase or decrease resources of an EC2 instances(like CPU, RAM)
 
+Q.)Difference between Spring and Spring Boot
+-->Spring is an open-source lightweight framework widely used to develop enterprise applications.
+-->Spring Boot is built on top of the conventional spring framework, widely used to develop REST APIs.
+-->The most important feature of the Spring Framework is dependency injection.
+-->The most important feature of the Spring Boot is Autoconfiguration.
+-->Spring:It helps to create a loosely coupled application.
+-->Spring boot It helps to create a stand-alone application.
+-->To run the Spring application, we need to set the server explicitly.
+-->Spring Boot provides embedded servers such as Tomcat and Jetty etc.
+-->To run the Spring application, a deployment descriptor is required.
+-->spring boot: There is no requirement for a deployment descriptor.
+-->To create a Spring application, the developers write lots of code.
+-->Spring boot: It reduces the lines of code.
+-->Spring: It doesn't provide support for the in-memory database.
+-->Spring boot: It provides support for the in-memory database such as H2.
+-->Spring: Developers need to write boilerplate code for smaller tasks.
+-->In Spring Boot, there is reduction in boilerplate code.
+-->Developers have to define dependencies manually in the pom.xml file.
+pom.xml file internally handles the required dependencies.
+
 Q.)FailFastIterator and FailSafeIterator?
 -->FailFastIterator: When we try to do any modification while iterating elements present in collection without making clone of collection object then it will give ConcurrentModificationException which is known as FailfastIterator. Ex: All Collection object
 --> To avoid ConcurrentModificationException one should use FailSafeIterator.
@@ -193,14 +247,41 @@ Spring Boot +++++++++++++++++
 Q.19)spring boot design patterns
 --> https://medium.com/@zaghdoudi.mohamed/spring-boot-design-patterns-a-comprehensive-guide-116ccba38054
 
-Q.20)exception handling in spring boot
--->In spring boot Exception is handled globally, we create GlobalExceptionHandler class and provide @ControllerAdvice at top of class and @ExceptionHandler(value=CustomExampleException.class) at top of method by passing custom Exception class(that extends RunTimeException) as that throws exception with @ResponseStatus(HttpStatus.Not_FOUND) and this method returns a @ResponseBody
+Q.20)default exception handling in spring boot
+-->In spring boot Exception is handled globally, we create GlobalExceptionHandler class that extends ResponseStatusExceptionHandler and provide @ControllerAdvice at top of class and @ExceptionHandler(value=CustomExampleException.class) at top of method by passing custom Exception class in parameter(that extends RunTimeException) as that throws exception with @ResponseStatus(HttpStatus.Not_FOUND) and this method returns a @ResponseBody
 
 Q.21)diff ways of authentication and authorization in spring boot
 --> Used Jwt token for authentication purpose while making an api call and used oauth2 for authorization when api sends request to another api(third party api call)
 
 Q.22)spring-boot-starter-parent uses?
 -->It manages dependency versions, allowing you to omit the <version> tag for dependencies declared in the spring-boot-starter-parent like example web, actuator etc. 
+
+Q.) What is spring-boot-starter-actuator?
+--> It provides endpoint which is used to monitor applications like health, info, beans and services used throughout application, used for documentation purpose also etc. Bydefaults these endpoints is not visible. To enable actuator we add "managedBean.endPoint.web.exposure.include=*" in app.properties file.
+
+Q.) What is spring-boot-starter-profiling?
+--> It is used to make different different property file for different environments like dev, test, qa/pre, prod. 
+--> If we don't do profiling by defaults all the configurations will go under default profiles i.e. application.properties or application.yml file
+--> application-dev.yml, application-test.yml, application-qa.yml, etc.
+--> To make any particular profile/configuration active for any particular environment, we should add:
+		spring.profile.active:dev
+		
+Q. What is sealed classes or interfaces?
+--> sealed is a keyword introduced in Java 17, restrict the inheritance hierarchy of classes and interfaces, allowing you to control which classes can extend or implement them.
+--> Example1: we can now create an interface and select only specific classes that are allowed to implement that interface. All other classes are not allowed to implement it.
+	public sealed interface MotherInterface permits ChildInterfacePermitted {}
+	//Has to be declared either as sealed or non-sealed
+	public non-sealed interface ChildInterfacePermitted extends MotherInterface {}  
+	public interface AnotherChildInterface extends MotherInterface {} 
+	//compiler error! It is not included in the permits of mother inteface
+	
+-->Example2: we can now restrict a class being extended (same as before with final) but you can now allow some specific classes to extend it. So now you have more control as before the keyword final was absolute restricting every class from extending the declared final class
+	public sealed interface MotherInterface permits ImplementationClass1 {} 
+	//Has to be declared either as final or as sealed or as non-sealed
+	public final class ImplementationClass1 implements MotherInterface {} 
+	public class ImplementationClass2 implements MotherInterface {} 
+	//compiler error! It is not included in the permits of mother inteface
+	 
 
 Q.23)only spring boot annotation
 -->@SpringBootApplication= @Configuration + @EnablAutoConfiguration + @ComponentScan
@@ -210,7 +291,7 @@ Q.23)only spring boot annotation
 -->@RequestBody:(pass it during Postcall)
 -->@Service
 -->@Autowired(used for dependency injection)
--->@Qualifier
+-->@Qualifier: when more than one type of bean is available in the class path, then it is used to differentiate between them to remove ambiguity which one to inject
 -->@Repsitory
 -->@Entity
 -->@Table
@@ -233,7 +314,7 @@ Q.26)@primary and @autowired difference
 Q.27)different ways to add more than one url patterns /login / home / homepage in requestmapping
 -->@RequestMapping(value={"/", " * "}, method=RequestMehod.GET), 
 
-Q.28)how to add compostite(more than column key) primary key 
+Q.28)how to add composite(more than column key) primary key 
 -->Add @EmbeddedId at top of custom key object in Entity class and add @Embeddable at top of Key class
 
 **Q.29)how to manage transaction management in jpa
@@ -264,21 +345,15 @@ Q.33)caching control in spring boot
 -->@Cacheable alongwith @RequestMapping
  
 
-Q.35)spring boot profiling
---> This is used to provide different different properties file based on environments such as local,dev,pre,prod. By default application.properties(local) is considered. To make any other property file active then we have to add spring.profile.active=dev in application.properties file
-
 Q.36)how to load diff diff appplication.properties file in classpath
 -->@PropertySource annotation is used with @Configuration on the top of Bean class
 -->Ex: @PropertySource({"classpath:url.properties","classpath:path.properties"})
-
-Q.37)spring-boot-starter-parent dependency use
---> manage dependencies versions
 
 Q.38)diff betwen controller and restcontroller
 --> @Controller:method that return view as response
 --> @RestController: Its combination of @Controller + @ResponseBody. Method that returns response body in the form of Json 
 
-Q.39)@async annotation(daemon)
+Q.39)@Async annotation(daemon)
 -->		
 
 MicroService ++++++++++++
@@ -309,7 +384,7 @@ Q.40)diff between resttemplate and webclient and feign client
 		}
 
 Q.41)microservice design patterns
--->api gateway
+-->api gateway, It is entry point of every request, it also used for filteration/authentication, logging.
 -->saga design pattern
 -->Circuit breaker(It is used to break the circuit and calls fallback method when failed request reaches its threshold value. and various types are: @Retry, @TimeLimiter, @CircuitBreaker)
 -->DB per service pattern
@@ -361,13 +436,17 @@ class Person {
     {
         System.out.println("Person is Instantiated.");
     }
-    public static Person getInstance()
+    public static Person deepu()
     {
-        if (person == null)
+        if (person == null) {
             person = new Person();
+		}
         return person;
     }
 }
+-->Use Case of Singleton:
+	Database Connection Management: Ensuring a single connection instance throughout the application.
+	Logger Classes: Managing a single logger instance to centralize log information.
 
 Q52) How to create Immutable class in Java?
 -->Immutable class in java means that once an object is created, we cannot change its content.
@@ -437,52 +516,6 @@ class GFG {
     }
 }
 
-Q.) write single design pattern code
---> Key Concepts of Singleton Method:
-	Private Constructor: The Singleton class has a private constructor to prevent the instantiation of the class from external entities.
-	Private Instance: The class contains a private static instance of itself.
-	Static Method: A static method is provided to access the instance, and it ensures that only one instance is created if it doesn't exist.
---> Implementation:
-		import java.io.*;
-		public class Singleton {
-		// Step 1: Private static instance
-			private static Singleton instance;
-
-			// Step 2: Private constructor
-			private Singleton() {
-				// Initialization, if needed
-			}
-
-			// Step 3: Static method to get the instance
-			public static Singleton getInstance() {
-				if (instance == null) {
-					instance = new Singleton();
-				}
-				return instance;
-			}
-		}
---> Use Case of Singleton:
-	Database Connection Management: Ensuring a single connection instance throughout the application.
-	Logger Classes: Managing a single logger instance to centralize log information.
---> import java.io.*;
-	public class DatabaseConnectionManager {
-    private static DatabaseConnectionManager instance;
-    private DatabaseConnectionManager() {
-        // Private constructor to prevent external instantiation
-    }
-    public static DatabaseConnectionManager getInstance() {
-        if (instance == null) {
-            instance = new DatabaseConnectionManager();
-        }
-        return instance;
-    }
-    // Additional methods for managing database connections...
-}	
---> Identifying the Need of singleton design pattern:
-	Problem: Excessive creation of database connection instances.
-	Solution: Implement a Singleton to manage a single instance of the database connection manager.
-
-
 Q.53.) How to manage caching in distributed system in spring boot?
 
 --------------------------------------------------------------------------------
@@ -500,21 +533,13 @@ Q.54) What is Thread? How many ways we can implement it?
 Q.56) What is Scheduler/ Thread Scheduler?
 --> Scheduler is a JVM component that allocates CPU to multiple thread based on their priority.
 
-
 Q.61) What is Synchronization of thread and how could we achieve it?
 --> Execution of single thread at a time. 
 --> To make use of synchronization of thread we can use synchronised keyword before method if require so that if one thread access that synchronised method then no other thread can access it.
 
-Q.62)Ways to prevent thread execution
-
-Q.63) wait, notify, notifyAll difference in Multithreading
-
-Q.64) difference between sleep and wait
-
 Q.65)How to achieve synchronisation in multithreaded environment?
 --> Adding synchronised keyword before method either static or non-static method. For static method lock applies on object to only method level but in case of static lock applied on object to class level.
 --> Adding synchronised keyword before block of code
-
 
 Q.57) What is thread pool and why we need it?
 --> Thread pool is a pool where multiple threads can perform task parallely in an asynchronous way. In case of Thread, once Thread.start() method gets initiated then that particular created thread cannot be used again, if we try to call the same thread again we will get IllegalThreadStateException. To overcome this exception Thread pool comes into picture.
@@ -561,11 +586,16 @@ Q.) How do you do logging in project?
 	debug=true 
 	trace=true 
 
+Q.) @Autowired mode?
+-->byName: It uses the name of the bean for injecting dependencies.
+-->byType:It injects the dependency according to the type of bean.
+-->Constructor:It injects the required dependencies by invoking the constructor.
+
 Q.) Multiple bean scope in SpringBootApplication?
 --> Application bean scope: a single object will get created for application lifecycle
 --> Prototype Bean Scope: 	A new bean instance is created every time a bean is requested.
 --> Session Bean Scope: For every session a new bean object will be created
---> Request Bean scope: For every request a new bean object will be created
+--> Request Bean scope: For every request a new bean object will be created(parameter passed in method in Controller class)
 --> Singleton bean scope: a single bean gets created per Spring IOC container
 
 Q.) What is the use of try with resource?
@@ -605,8 +635,6 @@ After the bean is created and returned, Spring does not track or manage it furth
 
 Q.) What is double checked locking pattern in singleton design pattern?
 --> https://stackoverflow.com/questions/18093735/double-checked-locking-in-singleton#:~:text=The%20double%20checked%20pattern%20is%20used%20to%20avoid,will%20not%20execute%20the%20locking%20thus%20saving%20resources.
-
-Q.) How parallel streams will work using CompletableFuture and what it will will return in returntype?
 
 Q.) Write your own functional interface to add sum of two numbers and use it in Streams api to return the value?
 --> import java.util.Arrays;
@@ -651,6 +679,29 @@ Q.) What is Spring Data JPA/ Springboot Data JPA?
 --> Interfaces and Classes provided by Spring Data JPA (Hierarchy): Repository -> CrudRepository -> PaginationAndSortingRepository -> JPARepository etc.
 --> JPARepository is mostly used Repository which inherit all other Repository.
 	
+Q.) Error vs Exception
+--> Error: 
+		** It is run time failure of a program which stops the execution of programs abruptly which are caused due to lack of system resources.
+		** Error represents irecoverable conditions which cannot be handled  by programmer such as JVM, OutOfMemoryError(Caused by lack of CPU), StackOverFlowError(caused by programmer due to infinite loop)
+		
+--> Exception:
+		** It is also runtime failure of programs that stops execution of program abruptly, and mostly caused by programmers.
+		** Exceptions can be handled by programmer, such as FileNotFOundException, NullPointerException, ArithmeticException, etc.
+		
+Q.) What is ClassCastException and how could we handle it?
+--> ClassCastException is caused by downcasting corelated classes, i.e. if we are trying to cast parent class to its subclass then it will throw ClassCastException	at run time. It could be handled by checking if subclass is instanceof parent class or not.
+
+--> Example: the variable which we need to downcast need to check with instanceof operator with assignment class.
+		Object obj = new Object();
+		String str = (String)obj;//here String is subclass of Object class and we are trying to downcast Object to STring type. we will get classCastException
+		//To avoid above situation we put if check
+		
+		if(obj instanceof String) {
+			String str = (String)obj;
+			System.out.prinln("successfully casted");
+		} else {
+			System.out.prinln("cannot be downcasted");
+		}
 
 Q.) What is boxed() method in Java Streams ?
 --> The boxed() method in Java streams is used to convert a stream of primitive types (such as IntStream, LongStream, or DoubleStream) to a stream of their corresponding wrapper classes (Stream<Integer>, Stream<Long>, Stream<Double>). 
@@ -789,13 +840,3 @@ Q.)Why is String immutable?
 Q.) How data signature works?(Telusko)
 
 13042005aq&8t
-
-	
-	
-
-
-
-	
-	
-
-
