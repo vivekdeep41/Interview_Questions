@@ -1,0 +1,40 @@
+Cloud Formation : json or yaml file for aws instances
+
+Cloudwatch : for logs - it participates in triggering alarms. Helps in monitoring the AWS environments like CPU utilization, EC2, Load Balancer, SNS, etc.
+
+S3 Bucket  : Simple Storage Service
+
+IAM : Identity and Access Management 
+Route 53 : for dns
+
+CloudFront :  Amazon CloudFront is a content delivery network (CDN) that speeds up delivery of static and dynamic web content, such as HTML, CSS, JavaScript, and images, by caching it at edge locations closer to end-users.
+
+EBS : Elastic block storage
+
+SnowBall : To transfer terabytes of data outside and inside of the AWS environment, a small application called SnowBall is used. 
+The data is copied into the SnowBall application. Data is then moved to the AWS S3.
+
+Amazon ec2: Amazon Elastic Compute Cloud
+
+Amazon Virtual Private Cloud (VPC)
+AWS VPN : CloudHub
+
+Monitor Amazon VPC : CloudWatch and CloudWatch logs, VPC Flow Logs
+
+Amazon Rds : Relational Db Management system
+Dynamodb : nosql
+Redshift : data warehouse for data analytics
+
+AWS WAF : AWS Web Application Firewall  for preventing cyber attacks
+
+cognit: for logging in to the mobile application
+
+Cloudtrail : CloudTrail is a service that captures information about every request sent to the Amazon Route 53 API. CloudTrail saves log files of these requests to an Amazon S3 bucket. You can use information in the CloudTrail log files to determine which requests were sent to Amazon Route 53, the IP address that the request was sent from, who sent the request, when it was sent, and more.
+
+Which service do you use if you want to allocate various private and public IP addresses to make them communicate with the internet and other instances :
+Amazon VPC
+
+This service is used to make it easy to deploy, manage, and scale containerized applications using Kubernetes on AWS. Which of the following is this AWS service : Amazon Elastic Container Service(ECS)
+
+This service lets you run code without provisioning or managing servers. Select the correct service from the below options : 
+AWS Lambda
