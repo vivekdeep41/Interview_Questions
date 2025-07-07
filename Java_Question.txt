@@ -1,0 +1,400 @@
+Project Information ++++++++++
+
+Q.1)Explain about yourself and your last project, how deployment is done, which methodology has been followed, and what are the challenges you have faced?
+--> I’ve been working as a Java, springboot & microservices developer for the past 7.4 years. My last project that I have worked on was OpenData project which basically designed for serching purpose such as fetch and display atm information, branch information, product informnation.
+-->It was a migration project , so didn't get much hands on it.
+-->Tech& tools used here was java 11 and java 17, spring boot microservices, JIRA, Gitlab, Github, Gitbash, tomcat Server.
+-->In this project there were many microservices that has been migrated from java 11 to 17.
+
+Q.50)Which design pattern we have used in project?
+-->Builder design pattern: The Builder Design Pattern is a creational pattern used in software design to construct a complex object step by step.
+-->Proxy design pattern: The proxy pattern provides a placeholder for another Object to control access to it. This pattern is used when we want to provide controlled access to functionality.
+-->Factory Design Pattern: The factory design pattern is used when we have a superclass with multiple subclasses and based on input, we need to return one of the subclasses. Example: Database connection
+-->Singleton desing pattern: The Singleton Method Design Pattern ensures a class has only one instance per JVM 
+-->Prototype design pattern: The prototype pattern is used when the Object creation is costly and requires a lot of time and resources, and you have a similar Object already existing. So this pattern provides a mechanism to copy the original Object to a new Object and then modify it according to our needs.
+
+Q.17)aws services used in projects
+-->AWS IAM – Identity and Access Management, this service is used to provide security to any resource(this service is basically used to create roles and responsities. It is used to assign permission to any person or any group to access any api or to access AWS features), used in Morgan stanley
+-->EC2: An Amazon EC2 instance is a virtual server in the cloud that you can use to run applications.
+-->S3: used for storage, AWS provides some library and we import it to use it in java class
+-->Cloudwatch: It is a monitoring and observability service in AWS that allows users to track and collect metrics, logs, and events from various AWS resources and applications. It enables users to gain insights into the performance and operational health of their infrastructure, applications, and services
+
+Roles and responsibilities:
+Day to day activities:
+First, I have cloned dev project from github into our own created branch and did migration from java 11 to java 17, wrote unit test cases, fixed bugs and errors while adding required dependencies
+-->committed code, and pushed changes to github, and raised pr. Once its approved got merged to master branch.
+-->Once its merged to master branch, jenkins pipeline started
+-->used Jenkins jobs for building, testing and the deployment. application getting deployed in OpenShift cloud
+-->have also involved in incident management.
+-->Agile methodologies has been used
+-->After changing the version from java 11 to 17, lot of things has been changed, lot of dependencies added and removed according to the requirement, and wrote test cases according to it. For writing test cases used github copilot plugin in Intellij IDE.
+-->api gateway used: Nginx: Engine x
+
+Java Question ++++++++++
+
+Q.6) Why Data transfer is recommended using DTO(Data Transfer Object)?
+--> DTO is a simple POJO class which is generally used for data transfer while setting values to its property in service layer after receiving data from database and then sent it to controller layer.
+
+Q.7) @Data is combination of?
+-->@Data is combination of @Getter + @Setter + @RequiredArgsConstructor + @toString + @EqualsAndHashCode except @NoargsConstructor and @AllArgsConstructor
+
+Q.8) Difference between @AllArgsConstructor and @RequiredArgsConstructor
+--> @AllArgsConstructor  to generate a constructor for all of your class's fields and use @RequiredArgsConstructor to generate a constructor for all class's fields that are marked as final and non null.
+
+Q.9) diff between hashcode and equals method?
+-->Hashcode is used to check address of an object and equals method used to check data 
+
+Q.10)how hashmap and hashset restrict duplicacy
+--> using key1.equals(key2) duplicacy is restricted
+
+Q.12)Hashset and Arraylist difference
+--> HashSet uses hashtable for storage and Arraylist uses dynamic array for storage.
+--> HashSet doesnot allow duplicate and arraylist allows duplicate element
+--> HashSet provides constant time performance for all operation but ArrayList give constant for search operation.
+--> HashSet allows atmost null value(max 1) but ArrayList allows multiple null values
+
+Q.13)ArrayList & LinkedList difference:
+--> ArrayList uses dynamic array, but Linked list uses doubly linked list structure
+--> ArrayList is preffered for frequest search operation, but LinkedList is preferred for modification or deletion operation if done from middle.
+
+Q.15)Collection used to access list of integers and why it's consider for easy access?
+-->ArrayList, ArrayList uses hashing technique to access which takes O(1) i.e. contant time complexity to access.
+
+Q.16)Memory model in garbage collection
+--> In the context of garbage collection, the memory model refers to how memory is managed, allocated, and reclaimed in a programming environment. Garbage collection is a process that automatically identifies and frees memory that is no longer in use, preventing memory leaks and optimizing resource utilization
+
+Q.17)how to make object unreferenced in garbage collection
+--> An object is eligible to be garbage collected if its reference variable is lost from the program during execution.Sometimes they are also called unreachable objects. we can collecte unreachable object by calling System.gc() method.
+--> System.gc() in Java is a method that suggests to the Java Virtual Machine (JVM) that it should run the garbage collector.
+
+Q.7)how many null key or value allowed in diff diff collection
+-->HashMap, value will get updated every time a null key is found.
+-->TreeMap, In case of Tree map no null keys are allowed
+-->HashSet, atmost one null values allowed
+-->Treeset, no null values allowed
+-->LinkedList, as many as you want
+-->ArrayList, as many as you want
+
+Q.8)java 8 features
+-->Static and default method
+-->Lambda Expression
+-->Functional Interface(Contains single abstract method)
+-->Streams api
+-->Optional class(class is used for null check in object)
+-->CompletableFuture.supplyAsync()(used to perform multiple task at a time asynchronously)
+
+Q.10)parrallel task using completablefuture and its alternative
+-->CompletableFuture is used to execute different task parallely using supplyAsync() method. Every supplied tasks execute independently on different threads. Task provided in CompletableFuture is high priority task. There is an alternative annotation for performing task parallely using annotation @Async over method definition in Spring boot for low priority task.
+
+Q.13)difference between map and flatmap
+--> map is used to process and transform only single stream i.e. but flatmap is used to process and transform multiple stream and flatten it to single stream
+
+ArrayList al = new ArrayList(); al.add("ramesh");     List<List<Integer> > number = new ArrayList<>();
+
+---> arrayList.stream().map(s -> s.length()).collect(Collectors.toList());
+--->    number.add(Arrays.asList(1, 2));
+        number.add(Arrays.asList(3, 4));
+        number.add(Arrays.asList(5, 6));
+        number.add(Arrays.asList(7, 8));
+      
+        List<Integer> flatList = number.stream().flatMap(list -> list.stream()).collect(Collectors.toList());
+
+Q.14)terminal operation and intermediate operation
+-->intermediate operation means function which return stream as an object, but terminal operation returns objects(Not Streams Objects returns Custom Objects).
+
+intermediate operation -> filter(), map(), flatMap(), distinct(), and sorted()
+terminal operation     -> forEach, collect, reduce, count, and anyMatch
+
+Number of predefined FunctionalInterface:: Function, Predicate, Supplier, Consumer
+
+Q.18)What is horizontal and vertical scaling?
+-->Horizontal scaling is used to increase or decrease number of server(EC2).
+-->Vertical scaling is used to increase or decrease resources of an EC2 instances(like CPU, RAM)
+
+Q.)FailFastIterator and FailSafeIterator?
+-->FailFastIterator: When we try to do any modification while iterating elements present in collection without making clone of collection object then it will give ConcurrentModificationException which is known as FailfastIterator. Ex: All Collection object
+--> To avoid ConcurrentModificationException one should use FailSafeIterator.
+-->FailSafeIterator: creating a clone of collection object before iterating and modifying collection object, so that modification is done on cloned object not on original collection object. Ex: ConcurrentHashmap, CopyOnWriteArrayList
+
+Q.)Implement code for Comparable and Comparator?
+--> code where sorting is used there we can use Comparable or Comparator.  
+-->Comparable is used for default natural sorting order and Comparator is used for customised sorting order
+--> Comparable has one method compareTo(Object o). This method compares the "current" object with the object passed as an argument.
+--> Comparator has one method compare(Object obj1, Object obj2) method. This method compares two separate objects provided as arguments.
+
+Q.)different types of design pattern?
+--> Creational Design Patterns: Deal with object creation mechanisms. Examples include Singleton, Factory Method, and Dependency Injection.
+Structural Design Patterns: Focus on object composition or the way relationships between entities are realized. Examples include Adapter, Composite, and Proxy.
+Behavioral Design Patterns: Address communication between objects, defining how objects interact and distribute responsibility. Examples include Observer, Strategy, and Template design patterns.
+
+Q. What is sealed classes or interfaces?
+--> sealed is a keyword introduced in Java 17, restrict the inheritance hierarchy of classes and interfaces, allowing you to control which classes can extend or implement them.
+--> Example1: we can now create an interface and select only specific classes that are allowed to implement that interface. All other classes are not allowed to implement it.
+	public sealed interface MotherInterface permits ChildInterfacePermitted {}
+	//Has to be declared either as sealed or non-sealed
+	public non-sealed interface ChildInterfacePermitted extends MotherInterface {}  
+	public interface AnotherChildInterface extends MotherInterface {} 
+	//compiler error! It is not included in the permits of mother inteface
+	
+-->Example2: we can now restrict a class being extended (same as before with final) but you can now allow some specific classes to extend it. So now you have more control as before the keyword final was absolute restricting every class from extending the declared final class
+	public sealed interface MotherInterface permits ImplementationClass1 {} 
+	//Has to be declared either as final or as sealed or as non-sealed
+	public final class ImplementationClass1 implements MotherInterface {} 
+	public class ImplementationClass2 implements MotherInterface {} 
+	//compiler error! It is not included in the permits of mother inteface
+	
+Q.42)java 4 pillars with example
+-->Encapsulation: Encapsulation is used for binding data in the form of setter and getter method for security purpose
+-->Polymorphism: Any functionality/method that can take more than one form. DataOverriding(method with same name alongwith different number of parameter or different datatypes overloaded in same class) and DataOverloading(method with same name alongwith same number of datatype and parameter with different returntype in its subclass) is an example of polymorphism
+-->Inheritance: Establishing relationship using extends or implements keyword between classes and interfaces and inheriting parent properties in child classes along with their own properties.
+-->abstraction: that involves hiding complex implementation details and exposing only the essential features or functionalities to the user. Example: Database connection, interface implementation
+
+Q.51)How to create singleton design pattern.
+--> The Singleton Method Design Pattern ensures a class has only one instance per JVM and provides a global access point to it.
+
+---> Make all constructor private.
+---> Write a static method that has the return type object of this singleton class. Here, the concept of Lazy initialization is used to write this static method. The instance is stored as a private static variable.
+
+class Person {
+    private static Person person;
+	private int x;
+    private Person(int x)
+    {
+		this.x=x;
+        System.out.println("Person is Instantiated.");
+    }
+    public static Person deepu()
+    {
+        if (person == null) {
+            person = new Person();
+		}
+        return person;
+    }
+}
+-->Use Case of Singleton:
+	@Controller, @Service, @Component, @Bean object in spring boot
+
+Q52) How to create Immutable class in Java?
+-->Immutable class in java means that once an object is created, we cannot change its content.
+
+-->	The class must be declared as final so that child classes can’t be created.
+--> Variable in the class must be declared private so that direct access is not allowed.
+--> Data members in the class must be declared as final so that we can’t change the value of it after object creation.
+--> A parameterized constructor should initialize all the fields performing a deep copy so that data members can’t be modified with an object 		reference.
+-->Deep Copy of objects should be performed in the getter methods to return a copy rather than returning the actual object reference)
+
+final class Student {
+
+    private final String name;
+    private final int regNo;
+    private final Map<String, String> metadata;
+
+    public Student(String name, int regNo, Map<String, String> metadata) {
+
+        this.name = name;
+        this.regNo = regNo;
+
+        Map<String, String> tempMap = new HashMap<>();
+
+        for (Map.Entry<String, String> entry : metadata.entrySet()) {
+            tempMap.put(entry.getKey(), entry.getValue());
+        }
+
+        this.metadata = tempMap;
+    }
+    public String getName() { return name; }
+    public int getRegNo() { return regNo; }
+ 
+    public Map<String, String> getMetadata()    {
+
+        Map<String, String> tempMap = new HashMap<>();
+
+        for (Map.Entry<String, String> entry : this.metadata.entrySet()) {
+            tempMap.put(entry.getKey(), entry.getValue());
+        }
+        return tempMap;
+    }
+}
+
+class GFG {
+
+    public static void main(String[] args)    {
+
+        Map<String, String> map = new HashMap<>();
+        map.put("1", "first");
+        map.put("2", "second");
+
+        Student s = new Student("ABC", 101, map);
+
+        System.out.println(s.getName());
+        System.out.println(s.getRegNo());
+        System.out.println(s.getMetadata());
+
+        // Uncommenting below line causes error
+        // s.regNo = 102;
+
+        map.put("3", "third");
+        // Remains unchanged due to deep copy in constructor
+        System.out.println(s.getMetadata());
+        s.getMetadata().put("4", "fourth");
+        // Remains unchanged due to deep copy in getter
+        System.out.println(s.getMetadata());
+    }
+}
+
+Q.) What is the use of try with resource?
+--> try with resource is used for managing and autoclose open resources. By this we don't need to add extra finally block.
+--> Ex. try(FileOutputStream fos = new FileOutputStream("gfgtextfile.txt")){
+			String text = "Hello World. This is my java program";
+            byte arr[] = text.getBytes();
+            fos.write(arr);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+		
+Q.) Write your own functional interface to add sum of two numbers and use it in Streams api to return the value?
+--> import java.util.Arrays;
+	import java.util.List;
+	import java.util.stream.Stream;
+
+	@FunctionalInterface
+	interface NumberAdder {
+		int add(int a, int b);
+	}
+
+	public class StreamSumWithFunctionalInterface {
+		public static void main(String[] args) {
+			List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+			NumberAdder adder = (a, b) -> a + b;
+			int sum = numbers.stream().reduce(0, adder::add);
+			System.out.println("Sum: " + sum); // Output: Sum: 15
+			// Or using a lambda directly with reduce
+			int sumWithLambda = numbers.stream().reduce(0, (a, b) -> a + b);
+			System.out.println("Sum with lambda: " + sumWithLambda); // Output: Sum with lambda: 15
+		}
+	}
+	
+Q.) Error vs Exception
+--> Error: 
+		** It is run time failure of a program which stops the execution of programs abruptly which are caused due to lack of system resources.
+		** Error represents irecoverable conditions which cannot be handled  by programmer such as JVM, OutOfMemoryError(Caused by lack of CPU), StackOverFlowError(caused by programmer due to infinite loop)
+		
+--> Exception:
+		** It is also runtime failure of programs that stops execution of program abruptly, and mostly caused by programmers.
+		** Exceptions can be handled by programmer, such as FileNotFOundException, NullPointerException, ArithmeticException, etc.
+		
+Q.) What is ClassCastException and how could we handle it?
+--> ClassCastException is caused by downcasting corelated classes(classes that is in inheritance), i.e. if we are trying to cast parent class to its subclass then it will throw ClassCastException	at run time. It could be handled by checking if subclass is instanceof parent class or not.
+
+--> Example: the variable which we need to downcast need to check with instanceof operator with assignment class.
+		Object obj = new Object();
+		String str = (String)obj;//here String is subclass of Object class and we are trying to downcast Object to STring type. we will get classCastException
+		//To avoid above situation we put if check
+		
+		if(obj instanceof String) {
+			String str = (String)obj;
+			System.out.prinln("successfully casted");
+		} else {
+			System.out.prinln("cannot be downcasted");
+		}
+
+Q.) What is boxed() method in Java Streams ?
+--> The boxed() method in Java streams is used to convert a stream of wrapper types (such as IntStream, LongStream, or DoubleStream) to a stream of their corresponding wrapper classes (Stream<Integer>, Stream<Long>, Stream<Double>).
+
+Q. Builder design pattern?
+--> The builder design pattern is generally used when creating complex objects with numerous optional parameters or when the construction process is step-by-step and potentially involves different configurations. It separates the object's construction from its representation, allowing for the same construction process to create different object variations. 
+--> one object h1 is passing to different methods m1, m2, m3, m4 with different parameters and customizing it.
+--> h1.m1(int a); h1.m2(char c); h1.m3(String s); h1.m4(int b); return h1.build();=> All these statements can be rewritten as
+	return h1.m1(int a).m2(char c).m3(String s).m4(int b).build();
+	
+--------------------------------------------------------------------------------
+Java Multithreading Concepts:
+
+Q.54) What is Thread? How many ways we can implement it?
+--> Thread is a light weight subprocess that allows concurrent execution of code within program. Each java program has atleast one thread which is main thread.
+-->priority of main thread is 5. 
+-->Daemon thread is a low priority thread which gets executed in background.
+--> Thread can be created in two ways:
+	a.) by extending Thread class and defining public void run() method and execute task under run method. After that we just need to call start method from an intance of newly created
+		class that extends Thread.
+	b.)	by implementing Runnable interface and defining public void run() method and execute task under run method. After that need to create instance of newly created class that implements Runnable interface and pass that instance to Thread thread = new Thread(instance) and call start method with thread instance.
+
+Q.56) What is Scheduler/ Thread Scheduler?
+--> Scheduler is a JVM component that allocates CPU to multiple thread based on their priority.
+
+Q.61) What is Synchronization of thread and how could we achieve it?
+--> Execution of single thread at a time. 
+--> To make use of synchronization of thread we can use synchronised keyword before method if require so that if one thread access that synchronised method then no other thread can access it.
+
+Q.65)How to achieve synchronisation in multithreaded environment?
+--> Adding synchronised keyword before method either static or non-static method. 
+For static method lock applies on object to only method but in case of non-static lock applied on object of class.
+--> Adding synchronised keyword before block of code
+
+Q.57) What is thread pool and why we need it?
+--> Thread pool is a pool where multiple threads can perform task in an asynchronous way. In case of Thread, once Thread.start() method gets initiated then that particular created thread cannot be used again, if we try to call the same thread again we will get IllegalThreadStateException. To overcome this exception Thread pool comes into picture.
+--> Java provides the Executor framework which includes the Executor(I), ExecutorService(I), and ThreadPoolExecutor(C) classes to manage thread pools.
+
+Q.57) What is ExecutorService and ThreadPoolExecutor?
+-->ExecutorService is an interface from package java.util.concurrent package that allows to execute multiple thread in an asynchronous way in the background
+-->Executor and ThreadPool are the same thing. ThreadPoolExecutor is a class which implements ExecutorService interface. It creates a thread pool that creates new threads as needed, but will reuse previously constructed threads when they are available. 
+
+Q.58) what are the 3 ways to create ExecutorServices?
+--> 1. Using SingleThreadExecutor: if we want to create one thread.
+		ExecutorService exs1 = Executors.newSingleThreadExecutor();
+--> 2. Using fixed number of thread	like 10 thread at a time
+		ExecutorService exs2 = Executors.newFixedThreadPool(10);
+--> 3. If we want to use scheduling feature while creating thread or delay creating thread for sometime (executing thread periodically)
+		ExecutorService exs1 = Executors.newScheduledThreadPool(10);
+		
+Q.59) How to check whether ExecutionService task finished successfully?
+--> we can use Future to check the return value if Future value return null then task finished successfully		
+	Future future = ExecutorService.submit(new Runnable() {
+		public void run() {
+			System.out.println("");
+		}
+	});
+	future.get();
+	
+Q.60)What is difference between Runnable and Callable interface?
+-->Runnable interface has run() method has return type void.
+-->Callable: interface has call() method has return type. If we have multiple return values from a possible task then we can use Callable interface.
+	Its a feature in ExecutorService.
+	Future futureFromCallable = ExecutorService.submit(new Callable() {
+		public String call() throws Exception {
+			return "Result";
+		}
+	});
+	System.out.println("futureFromCallable::::"+ futureFromCallable.get());
+	
+Q.61) How to break singleton design pattern
+--> through reflection, deserialization, and cloning
+
+Q.) What is String Contsant pool?
+--> Within the heap, the String constant pool is located. It stores unique string literals. Whenever a new string variable is created, the JVM will match the specified value with the values within the pool.
+In case of a match, instead of creating a new string (new memory location) JVM will use the existing value.
+
+=================================================================================================
+
+
+Q.)Why is String immutable?
+  
+Q.) How data signature works?(Telusko)
+
+Q.) Java 11 vs 17
+
+Q.) Future vs CompletableFuture
+
+Q.11)equal hashcode contracts?
+
+Q.) Java and spring boot design pattern and microservice design pattern?
+
+Q.39)@Async annotation(daemon)
+
+Q.53.) How to manage caching in distributed system in spring boot?
+
+Q.) What is double checked locking pattern in singleton design pattern?
+
+memeory model
+loader
+FunctionalInterface

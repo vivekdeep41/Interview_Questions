@@ -1,0 +1,399 @@
+Q.2) diff between put and patch ?
+--> put and patch both are http methods. In case of Put method, existing resource get updated even when single column is changed. But in case of Patch method, only particular column/property will get updated.
+
+Q.3) Different HTTP methods?
+--> POST:  is used to send data to a server to create/update a resource where end user will get 201 http status code. POST requests are never cached 
+-->PUT:
+-->PATCH:
+-->DELETE: to delete a resource on the server.
+-->GET: is used to fetch resource from sever
+
+Q.4) What is Idempotent(or Concept of Idempotent in Rest http method)?
+--> When multiple operation doesnot change the state of server response i.e. server response state remains constant then that method is Idempotent method. Ex: PUT(each time multiple column updated on 7 time gets the same result that particular row gets updated), DELETE(Row deleted), GET(Fetched row)
+
+Q.5) diff HTTP status code meaning?
+--> status codes with their meanings:
+1xx – Informational Response (These status codes are all about the information received by the server when a request is made).
+2xx – Success (This status code depicts that the request made has been fulfilled by the server and the expected response has been achieved).
+3xx – Redirection (The requested URL is redirected elsewhere).
+4xx – Client Errors (This indicates that the page is not found).
+5xx – Server Errors (A request made by the client but the server fails to complete the request). 
+-->200  (Success/OK): The HTTP status code represents success
+-->201: created
+-->301 (Redirected) : the page you have requested has moved to a new URL 
+-->400(Bad Request): request is not understandable by server, bad type request
+-->401 & 403(Unauthenticated & Unauthorized Error respectively) : http request is not authorised to access server so it need authentication
+-->404(Not Found): when server doesnot found anything with the request
+-->405: method not allowed
+-->500(Internal Server Error): When there’s an error during a connection to the server, and the requested page cannot be accessed
+-->503(Service Unavailable)
+-->504(Gateway Timeout) 
+
+Q.)How to resolve 404 not found error?
+-->You can resolve a 404 Not Found error on your website by creating a 301 redirect to the new page, or by recovering the old page if it has been deleted. If visitors report seeing a 404 Not Found error due to making common URL misspellings, you might create a 301 redirect to the correct URL.
+
+Q.14)What is Cyclic dependency and how could we resolve it?
+--> A cyclic dependency occurs when two or more beans depend on each other, creating a cycle. For example, Bean A depends on Bean B, and Bean B depends on Bean A. This circular reference can lead to issues during the initialization of beans in a Spring application.
+-->In Spring, when a bean is being created, its dependencies are injected. If these dependencies form a cycle, Spring will enter an infinite loop trying to resolve the beans, eventually leading to an error.
+-->@Component
+	public class BeanA {
+		private final BeanB beanB;
+
+		//Constructor Autowiring 
+		@Autowired
+		public BeanA(BeanB beanB) {
+			this.beanB = beanB;
+		}
+	}
+
+	@Component
+	public class BeanB {
+		private final BeanA beanA;
+
+		@Autowired
+		public BeanB(BeanA beanA) {
+			this.beanA = beanA;
+		}
+	}
+--> Cyclic dependency could be resolved by using lazy initialization of dependent bean using @Lazy, 
+	@Component
+	public class BeanA {
+		private final BeanB beanB;
+
+		@Autowired
+		public BeanA(@Lazy BeanB beanB) {
+		this.beanB = beanB;
+		}
+	}
+By applying @Lazy to Constructor injection to BeanB, Spring will not attempt to inject BeanB into BeanA until BeanB is actually needed. This breaks the cycle and allows both beans to be created successzfully.	
+--> Cyclic dependency can also be resolved by refactoring of bean i.e. creating another bean which would be commonly dependent on other beans
+--> https://www.codeproject.com/Articles/5388111/How-to-Handle-Cyclic-Dependency-Between-Beans-in-S
+
+Q.12)reading xsd schema
+jaxb2-maven-plugin plugin used in pom.xml 
+
+Q.) What is ApplicationContext in spring framework?
+--> The ApplicationContext is the central component responsible for instantiating, configuring, and managing the lifecycle of your application's objects, known as "beans." It handles dependency injection, ensuring that beans have all the necessary dependencies injected into them.
+
+Q.11)use of swagger
+-->Swagger, now known as OpenAPI Specification (OAS), is a powerful tool used in Spring Boot to design, document, and test REST APIs by providing a standard way to describe APIs, making them easier for developers and testers to understand and interact with. 
+
+Q.15)different different annotaion in junit?
+-->@SpringBootTest at class level(Mandatory)
+-->@Test at top of each test method
+-->@setup
+-->@AfterEach
+-->@BeforeEach
+-->@Mock: to mock any object alongwith autowired object
+-->@InjectMocks: inject all mocked object(to inject all mocked autowired object)
+-->Assertions.assertEquals(expected,actual) method is used
+
+Q.16)difference between junit, mockito, and wiremock?
+-->junit is a framework for unit testing, latest junit version used is 5 i.e. junit 5. Mockito is a mocking framework provide mock implementation of method and object(mockito uses part of application code). Wiremock is also a mocking framework provide simulator(training purpose) for http based API's(wiremock is external to application code)
+
+Q.)Difference between Spring and Spring Boot
+-->Spring is an open-source lightweight framework widely used to develop enterprise applications.
+-->Spring Boot is built on top of the conventional spring framework, widely used to develop REST APIs and stand-alone applications.
+
+-->The most important feature of the Spring Framework is dependency injection.
+-->The most important feature of the Spring Boot is Autoconfiguration.
+
+-->Spring:It helps to create a loosely coupled application.
+-->Spring boot It helps to create a stand-alone application.
+
+-->To run the Spring application, we need to set the server explicitly.
+-->Spring Boot provides embedded servers such as Tomcat and Jetty etc.
+
+-->To run the Spring application, a deployment descriptor(web.xml) is required.
+-->spring boot: There is no requirement for a deployment descriptor.
+
+-->Spring: It doesn't provide support for the in-memory database.
+-->Spring boot: It provides support for the in-memory database such as H2.
+
+-->Spring: Developers need to write boilerplate code for smaller tasks.
+-->In Spring Boot, there is reduction in boilerplate code.
+
+-->Developers have to define dependencies manually in the pom.xml file.
+-->pom.xml file internally handles the required dependencies(spring-boot-starter).
+
+Q.19)spring boot design patterns
+--> https://medium.com/@zaghdoudi.mohamed/spring-boot-design-patterns-a-comprehensive-guide-116ccba38054
+
+Q.20) exception handling in spring boot
+-->In spring boot Exception is handled globally, we create GlobalExceptionHandler class and provide @ControllerAdvice at top of class and @ExceptionHandler(value=CustomExampleException.class) at top of method by passing custom Exception class in parameter(that extends RunTimeException) as that throws exception with and this method returns a @ResponseBody
+
+Q.21)diff ways of authentication and authorization in spring boot
+--> Used Jwt token for authentication purpose while making an api call and used oauth2 for authorization when api sends request to another api(third party api call)
+
+Q.22)spring-boot-starter-parent uses?
+-->It manages dependency versions, allowing you to omit the <version> tag for dependencies declared in the spring-boot-starter-parent like example web, actuator etc. 
+
+Q.) What is spring-boot-starter-actuator?
+--> It provides endpoint which is used to monitor applications like health, info, beans and services used throughout application, used for documentation purpose also etc. Bydefaults these endpoints is not visible. To enable actuator we add "managedBean.endPoint.web.exposure.include=*" in app.properties file.
+
+Q.) What is spring-boot-starter-profiling?
+--> It is used to make different different property file for different environments like dev, test, qa/pre, prod. 
+--> If we don't do profiling by defaults all the configurations will go under default profiles i.e. application.properties or application.yml file
+--> application-dev.yml, application-test.yml, application-qa.yml, etc.
+--> To make any particular profile/configuration active for any particular environment, we should add:
+		spring.profile.active=dev
+
+Q.23)only spring boot annotation
+-->@SpringBootApplication= @Configuration + @EnablAutoConfiguration + @ComponentScan
+-->@RestController(@Controller + @ResponseBody)
+-->@RequestMapping(Method=RequestMethod.GET, value="/context-path/endpoint/{id}")
+-->@PathVariable: used in method parameter to pass in url pattern and replace {id}
+-->@RequestBody:(pass it during Postcall)
+-->@Service
+-->@Autowired(used for dependency injection)
+-->@Qualifier: when more than one type of bean is available in the class path, then it is used to differentiate between them to remove ambiguity which one to inject
+-->@Repository
+-->@Entity
+-->@Table
+-->@Column
+-->@Primary(Spring old concept, bydefault use to inject particular bean class dependency with @autowired)
+-->@RequestParam: This is used to map query parameter with method parameter
+-->@Query(for writing DB native query)
+
+Q.24)stereotype annotation
+-->  @Service, @RestController, @Respository
+
+Q.25)@autowired problem and its solution
+--> If any class implement two interface that have same method name then which interface method have to be implemented brings ambiguity to the result. To avoid this amiguity @Qualifier(name ="BeanClassExample.classs") is used with Bean class name. This BeanClass name is provided with @Bean annotation wherever it is defined
+
+Q.26)@primary and @autowired difference
+-->@Primary is used for default Bean class that has to be used with @autowired
+
+Q.27)different ways to add more than one url patterns /login / home / homepage in requestmapping
+-->@RequestMapping(value={"/", " * "}, method=RequestMehod.GET), 
+
+Q.28)how to add composite(more than column key) primary key 
+-->Add @EmbeddedId before custom key object in Entity class and add @Embeddable at top of Key class.
+
+**Q.29)how to manage transaction management in jpa
+--> @Transactional annotation in service class can be used on top of method, on the top of class
+
+Q.30)diff between crud repo and jpa repo
+-->crud: can perform read,update,create, and delete operation can be performed
+-->jpa: can perform crud operation along with pagination and sorting
+
+Q.31)how to access two table at a time with same repository interface?
+--> not possible
+
+Q.32)how to improve performace in spring boot?
+-->Disabling autoconfiguration of DB connection (spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration)
+-->Optimize JVM Memory Settings by increasing heap memory size
+-->Enable Garbage collection
+-->Use DB connection pooling to optimize DB performance[Configure HikariCP in application.properties: i.e. (*spring.datasource.hikari.maximum-pool-size=20
+*spring.datasource.hikari.minimum-idle=5
+*spring.datasource.hikari.idle-timeout=30000
+*spring.datasource.hikari.max-lifetime=60000)]
+-->Use indexing for faster queries
+-->Enable Caching in Spring Boot
+-->For heavy computations or long-running tasks, use @Async to execute them asynchronously.
+-->Enable Actuator for Monitoring
+
+Q.33)caching control in spring boot
+-->@EnableCaching alongwith @SpringBootApplication
+-->@Cacheable(value="anything") alongwith @RequestMapping (** Here value is manadatory without it we will get an exception)
+ 
+Q.36)how to load diff diff appplication.properties file in classpath
+-->@PropertySource annotation is used with @Configuration on the top of Bean class
+-->Ex: @PropertySource({"classpath:deepu.properties","classpath:rt.properties"})
+
+Q.38)diff betwen controller and restcontroller
+--> @Controller:method that return view as response
+--> @RestController: Its combination of @Controller + @ResponseBody. Method that returns response body in the form of Json 
+
+Q.49)how to add custom object as a key in jpa repo?
+--> By overriding equals() and hashcode() methods in custom object then only it will work as a key
+
+Q.) How do you do logging in project?	
+--> Spring boot allows us to see the logs in the console even if we do not provide any specific configuration for it. This is because spring boot uses Logback for its default logging. Spring boot’s internal logging provider is A pache Commons which provides support for Java Util Logging , Log4j2 , and Logback .
+--> Spring boot starters such as spring-boot-starter-web imports spring-boot-starter-logging which automatically pulls in Logback. On running the application and visiting the http://localhost:8080/log page, we can see the following output in the console.
+--> The log levels supported by Spring boot are TRACE , INFO , DEBUG , ERROR , and WARN . By default ERROR, INFO and WARN are printed to the console. It is possible to activate the debug and trace level by adding the following properties in the application.properties file.
+	debug=true 
+	trace=true 
+
+Q.) @Autowired mode?
+-->byName: It uses the name of the bean for injecting dependencies.
+-->byType:It injects the dependency according to the type of bean.
+-->Constructor:It injects the required dependencies by invoking the constructor.
+
+Q.) Multiple bean scope in SpringBootApplication?
+--> Application bean scope: a single object will get created for application lifecycle
+--> Prototype Bean Scope: 	A new bean instance is created every time a bean is requested.
+--> Session Bean Scope: For every session a new bean object will be created
+--> Request Bean scope: For every request a new bean object will be created(parameter passed in method in Controller class)
+--> Singleton bean scope: a single bean gets created per Spring IOC container(ex. @Controller, @Service, @Repository object)
+
+@Component
+@Scope("session") @Scope("prototype") @Scope("application") @Scope("singleton") 
+public class ShopCart { }
+
+Q.) Spring bean lifecycle
+--> Spring provides to important methods i.e. public void init() and public void destroy() to every single bean.
+--> name of these two methods could be changed but signature would be same.
+--> Spring IoC (Inversion of Control) Container is the core of the Spring Framework. It creates objects (beans), configures them, injects dependencies, and manages their life cycles.
+--> inside init() method code initialization, loading configuration, connecting database, webservices etc could be added.
+--> destroy() method would perform cleanup activities once spring container destroy the unused object of bean.
+--> E.g., we provide metadata(configuration file) and bean class to Spring IoC container. Whenever we get beans using getBeans(), simply object of bean class will get created(or instantiated) by container and then all the fields value of bean class would be intialized by container. Later init() method will get called and then later we can read using getBeans() and use beans(all variables and methods of bean class). Later after use of beans class, object will be destroyed by container and then destroy() method would be called to perform cleanup activities.
+		
+Q.) How to configure spring beans?
+--> 3 ways to configure spring beans 
+		* xml:
+		* spring interface
+		* annotation
+		
+Q.) When beans will be created/ how many types of beans creation?		
+--> Beans can be created in 2 ways: Eager initialization(When we start application. e.g., Beans with singleton scope) and lazy initialization(when beans are needed. e.g. @Lazy annotation)
+
+Q.) How request is passed in prototype bean scope?
+--> In the Prototype scope of a Spring bean, a new instance of the bean is created every time it is requested. This means that the request is not passed or shared between instances; instead, each request results in a completely separate and independent bean instance.
+
+--> 1. Prototype Scope Behavior
+When a bean is defined with the @Scope("prototype") annotation or <bean scope="prototype"> in XML configuration, Spring does not manage the complete lifecycle of the bean.
+Spring only creates a new instance of the bean when it is explicitly requested (e.g., via ApplicationContext.getBean() or dependency injection).
+After the bean is created and returned, Spring does not track or manage it further. This includes no automatic destruction or cleanup.
+
+Q.) What is the use of JPA over JDBC?
+--> JPA and JDBC is an api used to perform database operations
+--> Interfaces and classes in JDBC are: DriverManager, Connection, Statement, PreparedStatement, ResultSet, Driver, DataSources, etc.
+	Intefaces and classes in JPA are: EntityManager, EntityManagerFactory, EntityTransaction, Query, TypedQuery, Persistence, etc.
+--> JDBC follows traditional approach to store data in database using SQL  query, developer have to write queries to perform database operations.
+	JPA follows ORM approach for storing data in database
+--> JDBC is a specification provided by database vendors like MySQL, Oracle, PostGreSQL, etc.
+	JPA is also a specification provided by ORM vendors like JBoss(hibernate), EclipseFoundation(EclipseLink), etc.
+	Whenever we use JPA, we mostly use Hibernate in our application
+--> JDBC provides low level abstraction over database vendors, developer have to write queries.
+	JPA provides high level abstraction over ORM vendors
+--> In case of JDBC, its difficult to switch between different databases
+	In case of JPA, its easy to switch between different ORM vendors.
+--> JDBC is less demanding in industry
+	JPA is more demanding in industry	
+	
+Q.) What is Spring Data JPA/ Springboot Data JPA?
+-->	A new module built by Spring framework with the use of JPA, it means Spring data JPA internally uses JPA only based on what developer perform database operations.
+--> Interfaces and Classes provided by Spring Data JPA (Hierarchy): Repository <- CrudRepository and PaginationAndSortingRepository <- JPARepository etc.
+--> JPARepository is mostly used Repository which inherit all other Repository.
+
+Spring Security:---- Reference: https://www.youtube.com/watch?v=oeni_9g7too
+===========================================================================================
+-->Security can be achieved at controller layer just by adding spring-security-web dependency.
+spring-security-web dependency provides login page for verification before accessing page. It also activate session via /logout or using different tab(different window).
+--> To get SessionId:
+ @GetMapping("/")
+ public String getSession(HttpServletRequest request) {
+	return "welcome to this page "+request.getsession().getId();
+ }
+
+--> spring-security-web also provide logout page as well. This spring-security-web provides login info for only one username as user and password is console generated which is only meant for development purpose not for production. We could also set username and password in app.properties file but, it is not recommended. But in case of many user, we need database where multiple user name can be stored.
+
+--> By default spring-web-security provides many different filters i.e. security filters chain before requests goes to controller layer. 
+
+	@Bean
+	public SecurityFilterChain securityFilterchain(HttpSecurity httpSecurity) throws Exception{
+		return httpSecurity
+		.csrf(customizer->customizer.disable())
+		.authorizeHttpRequests(request->request
+			.requestMatchers("register","login")
+			.permitAll()
+			.anyRequest().authenticated())
+		.httpBasic(Customizer.withDefaults())	
+		.sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+		.build();
+	}
+
+--> CSRF(Cross-Site Request Forgery) tokens and JWT (JSON Web Token) are both security mechanisms used in web applications, but they serve different purposes. JWTs are digitally signed token primarily used for stateless(doesnot store session info) authentication and authorization, which can be verified by server ensuring a user is who they claim to be and has the necessary permissions, while CSRF tokens are session-based authenticated token that protect against CSRF attacks, preventing malicious actors from tricking users into performing unwanted actions on a web application. 
+
+--> how to generate csrf token:
+	@GetMapping("/csrf-token")
+	public String getCsrfToken(HttpServletRequest request) {
+	//Attributes can be checked through viewpagesource
+		return (CsrfToken)request.getAttributes("_csrf");
+	}
+--> After receiving csrf-token, it is passed to POST/PUT/Delete headers as key value pair with key:X-CSRF-TOKEN, value as generated CSRF token.
+	Whenever we do any kind of update like PUT,POST or delete, csrf token is required if sping-web-security dependency has been used otherwise, 401 unauthorised access error will be received as response.
+	
+--> Whenever we pass username and password to login form it is actually an unauthenticated object, first unauthenticated object goes through AuthenticationProvider	service bydefault and then it convert it to authenticated object. Customised AuthenticationService can connect to LDAP or to database or to some other service.
+
+-->Customisation of AuthenticationProvider with DB with our own UserDetailsService: Using DAOAuthenticationProvider in Configuration bean class
+	@Bean
+	Public AuthenticationProvider authenticationProvider() {
+		DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+		daoAuthenticationProvider.setPasswordEncoder(new BycryptPasswordEncoder(12));//here 12 means 2^12.
+		daoAuthenticationProvider.setUserDetailsService(UserDetailsService);
+		return daoAuthenticationProvider;
+	}
+
+-->Whenever a user creates an account or logged in and at this time if asked a user for password never ever store the password in plain text. In this case we have to implement Bycrypt when user register or when user logged in. Whenever we register any user data should be stored in database. 
+
+ For registering user, we got request on controller, controller send requests to Service and Service sending request to repository and Repository is connecting with database
+	
+	@RestController
+	public class UserController {
+		@Autowired
+		private UserService userService;
+		
+		@PostMapping("/register")
+		public Users register(@RequestBody Users users)
+		return userService.register(users);
+	}
+	
+	@Service
+	public class UserService {
+		@Autowired
+		private UserRepo repo;
+		
+		private BycryptPasswordEncoder passEncode = new BycryptPasswordEncoder();
+		
+		public Users register(Users users) {
+			users.setPassword(passEncode.encode(users.getPassword()));
+			return repo.save(users);
+		}
+	}
+	
+	@Repository
+	public interface UserRepo extends JPARepository<Users, Integers> {
+		Users findByUsername(String username);
+	}
+	
+ JWT(Java Web Token):
+
+Q.)How to represent sign-in token in data format?
+-->XML and JSON(JavaScript Object Notation)
+-->whenever client and server want to exchange token we can use XML format, but XML format is very bulky. So in place of XML we can instead use JSON.
+-->Using JSON, data can be represented in small format and also it can be encoded to make it more smaller. It is very easy to carry between client and server, then we build some token which will be used on web. In short it would be called as JWT token.
+-->JWT token is an open industry standard method for representing claims securely between two different parties.
+--> Suppose we get a card to maintain secure data between client and server, it contains JWT token which get exchanged. JWT contains payload data(necessary info), header(JWT and security related info), signature(to verify the token is valid between client and server).
+--> whenever we sends signature data basically we send in plain text and it would be received as plain text in sever side, so instead of plain text we could use cipher text(where we encrypt plain-text data using) for sending signature and dycrypt that cipher text using key to convert it to plain text on sever side.
+-->JWT is used basically for accountability not for secracy, but it can be used as secracy as well.
+
+Q.) How to implement JWT token?
+-->JWT implementation is done in different stages which are not part of spring-web-security.
+  a.)We separately add libraries for JWT.
+	JWT API dependency: jjwt api dependency
+	JWT implementation: jjwt implementation dependency
+	Jackson converter dependency(optional, needed if required)	
+	
+  b.)we have to create layers so that When we sends request it goes to Spring-security and then ask AuthenticationProvider to talk to database to verify it. When we send request and want to use JWt token, object of authentication goes to server where AuthenticationManager calls AuthenticationProvider and by default AuthenticationManager handles stuff behind the scene.
+  
+  c.) we write code to generate token, write code  generate secret key to provide signature to generated token
+  d.) After token get generated and provided with signature it need to be validated and should be part of database so that user can get access
+  
+Q.) Difference between JWT and Oauth2?
+--> OAuth 2.0 and JWT (JSON Web Token) are distinct but often used together. OAuth 2.0 is an authorization framework that allows third-party applications to access resources on behalf of a user without requiring the user's credentials. JWT is a token format used for securely transmitting information between parties, often used for authentication and authorization.   
+  
+Q.) What is Client-id and client-secret?
+--> In OAuth 2.0, Client ID and Client Secret are credentials used to identify and authenticate applications when interacting with an API or authorization server. The Client ID is a public identifier, while the Client Secret is a confidential secret, akin to a password, used for secure authentication.   
+--> There are two parties that need to be authenticated: the application and the user.
+	The application is authenticated with the ID and secret, possibly backed up by the callback URL, which should ensure that the recipient of the token is the right one.
+--> Your app’s unique client_id and client_secret are values you need to go through OAuth authorization and receive the access_token and refresh_token to be used in API requests.
+
+--> In general, client IDs are needed only when you want to allow (third-party) client applications to access (your service's) users' data with restricted privileges. In this case, each client application must be given authorization by a user. As a result, your system will need client IDs to know which client application the user has granted permissions to.
+	
+Q.) The Ultimate CICD Corporate DevOps Pipeline Project | Real-Time DevOps Project
+--> https://www.youtube.com/watch?v=NnkUGzaqqOc
+
+Q.) Use of @EnableAutoConfiguration?
+--> The @EnableAutoConfiguration annotation in Spring Boot is used to enable automatic configuration of the Spring application context based on the dependencies present in the project's classpath. It allows Spring Boot to intelligently configure common components, like databases, messaging systems, or security, without requiring explicit manual configuration.

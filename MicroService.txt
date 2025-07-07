@@ -1,0 +1,44 @@
+Q.40)diff between resttemplate and webclient and feign client
+-->RestTemplate: RestTemplate is a direct way of synchronous http methods communication between microservices
+		RestTemplate restTemplate = new RestTemplate();
+		String response = restTemplate.getForObject(url, String.class);
+
+-->WebClient: WebClient is a non-blocking, reactive client introduced in Spring 5 as part of the WebFlux framework, allowing it to handle many requests simultaneously without waiting for each one to finish. Webclient support streaming of data and suitable for reactive applications.
+		WebClient webClient = WebClient.create("https://jsonplaceholder.typicode.com");
+        
+        Mono<String> responseMono = webClient.get()
+                                             .uri("/posts/1")
+                                             .retrieve()
+                                             .bodyToMono(String.class);
+        responseMono.subscribe(response -> System.out.println("Response: " + response));
+		
+-->FeignClient: Feign Client allows us to define HTTP clients using interfaces and annotations developed by Netflix and integrated with Spring Cloud.
+	* add dependency: spring-cloud-starter-openfeign
+	* Enable Feign Client support in your Spring Boot application by adding the @EnableFeignClients annotation.
+	*Define an interface for the HTTP client and use the @FeignClient annotation.
+		import org.springframework.cloud.openfeign.FeignClient;
+		@FeignClient(name = "jsonplaceholder", url = "https://jsonplaceholder.typicode.com")
+		public interface PostClient {
+			@GetMapping("/posts/{id}")
+			String getPostById(@PathVariable("id") int id);
+		}
+
+Q.41)microservice design patterns
+-->api gateway, It is entry point of every request, it also used for filteration/authentication, logging.
+-->saga design pattern
+-->Circuit breaker(It is used to break the circuit and calls fallback method when failed request reaches its threshold value. and various types are: RateLimiter, @TimeLimiter, @Retry, @CircuitBreaker, @Bulkhead)
+-->DB per service pattern
+-->Aggregator design pattern(gather response from multiple microservices and respond back to end user)
+
+Q.43)microservice fault tolerance 
+--> Fault tolerance is a term of microservices architecture, that ensures the system remains operational even when individual services fail. In a microservices setup, numerous small services communicate with each other to fulfill their requirements. If one service fails, it can potentially bring down the entire system if not handled properly. 
+Ex. 
+@Retry(If once request fails then bydefault server will send request automatically), 
+@CircuitBreaker(It is used to break the circuit and calls fallback method when failed request reaches its threshold value),
+@TimeLimiter(If server is not able to generate response within declared time then fallback method will get called), 
+@RateLimiter(no. of requests allowed in a time interval.Ex. in a span of 2s only 2 requests will be served and if third request in that span of time comes will go to fallback method automatically called by server), 
+@BulkHead(no. of concurrent request reaches its threshold then fallback method will get called)
+
+Q.44)saga design pattern
+--> used to manage api transaction in distributed environment(mutiple microservices) and rollback all failed transaction as well.
+--> https://stackoverflow.com/questions/18093735/double-checked-locking-in-singleton#:~:text=The%20double%20checked%20pattern%20is%20used%20to%20avoid,will%20not%20execute%20the%20locking%20thus%20saving%20resources.
