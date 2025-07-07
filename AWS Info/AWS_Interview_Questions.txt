@@ -1,0 +1,67 @@
+Q.) What is aws in brief?
+--> AWS is a cloud computing service offered by Amazon. AWS lets you build, test, deploy and manage applications and services. All this is done via the data centres and the hardware managed by Amazon. AWS provides you with a combination of Infrastructure-as-a-Service (IaaS), Platform-as-a-Service (PaaS), and Software-as-a-Service (SaaS) offerings.
+You can use AWS to create Virtual Machines(EC2) which can be armed with processing power, storage capacity, and analytics along with networking and device management. 
+
+servers, storage, and networking over the internet, DNS and Load Balancer are a part of IaaS-Storage Cloud Service
+PaaS (Platform-as-a-Service): PaaS provides a platform for developing, running, and managing applications. It handles the underlying infrastructure (servers, storage, networks) and provides tools and services for developers to build, test, deploy, and manage applications.
+AWS Elastic Beanstalk: An application management service that automates the deployment and scaling of web applications.
+
+Q.)What is EC2?
+--> EC2, a Virtual Machine in the cloud on which you have OS-level control. You can run this cloud server whenever you want and can be used when you need to deploy your own servers in the cloud, similar to your on-premises servers, and when you want to have full control over the choice of hardware and the updates on the machine.
+
+Q.) What is SnowBall?
+--> SnowBall is a small application that enables you to transfer terabytes of data inside and outside of the AWS environment.
+
+Q.) What is CloudWatch?
+--> Amazon CloudWatch is a monitoring and observability service for AWS resources and applications. It collects metrics, logs, and events, enabling users to gain insights into performance, resource utilization, and operational health. CloudWatch allows users to monitor AWS resources like EC2 instances, DynamoDB tables, and RDS DB instances, as well as custom metrics from applications and services. It also provides features like setting alarms, automating actions, and visualizing data through dashboards. 
+
+Q.) What do you understand by VPC?
+--> VPC stands for Virtual Private Cloud. It allows you to customize your networking configuration. VPC is a network that is logically isolated from other networks in the cloud. It allows you to have your private IP Address range, internet gateways, subnets, and security groups.
+For example, To host the web servers in public subnets and connecting to the databases placing in private subnets can be on configuring the VPC.
+
+Q.) What are Key-Pairs in AWS?
+--> Key-Pairs are secure login information for your Virtual Machines. To connect to the instances, you can use Key-Pairs which contain a Public Key and a Private Key.
+
+Q.) Explain what S3 is?
+--> S3 stands for Simple Storage Service. You can use the S3 interface to store and retrieve any amount of data, at any time and from anywhere on the web. 
+
+Q.) What is the relation between the Availability Zone and Region?
+--> An AWS Availability Zone is a physical location where an Amazon data center is located. On the other hand, an AWS Region is a collection or group of Availability Zones or Data Centers. 
+
+Q.) How do you monitor Amazon VPC?
+--> CloudWatch
+VPC Flow Logs
+
+Q.) What are the advantages of AWS IAM?
+--> AWS IAM enables an administrator to provide granular level access to different users and groups. Different users and user groups may need different levels of access to different resources created. With IAM, you can create roles with specific access-levels and assign the roles to the users. 
+
+It also allows you to provide access to the resources to users and applications without creating the IAM Roles, which is known as Federated Access.
+
+Q.) Describe The Difference Between S3 And EBS In AWS.
+--> S3 ( Simple Storage Service ) is an object storage service suitable for storing various data types of files that can accessed through the internet. In contrast, EBS ( Elastic Block storage ) is a block-level storage attached to EC2 instances, offering persistent and high-performance storage for applications like databases. EBS provides the raw storage hardware helpful for I/O operations where as S3 comes with pre configured file system. For understanding think of S3 as a file storage system and EBS as a hard drive.
+
+Q.) What Are Key-Pairs In AWS?
+--> A key pair consists of two types of keys - a public key and a private key. The public key is used to encrypt data and stored on the AWS EC2 instance while a private key is used to decrypt data and is kept by the user. Whenever you want to connect to an AWS EC2 instance a key-pair works as a security credential to prove your secure authentication identity and access to EC2 instance via SSH.
+
+Q.) What is elb?
+--> Elastic Load Balancing (ELB) is a service provided by Amazon Web Services (AWS) that distributes incoming application traffic across multiple targets, such as EC2 instances, containers, and IP addresses, within one or more Availability Zones. It automatically distributes traffic and monitors the health of its registered targets, routing traffic only to healthy instances, thereby improving application availability and fault tolerance. 
+
+Q.) CloudWatch vs CloudTrail
+--> CloudWatch and CloudTrail are both monitoring and logging services in AWS, but they serve different purposes. CloudWatch focuses on monitoring the performance and operational health of AWS resources and applications. It tracks metrics, logs, and events to provide insights into how systems are running. In contrast, CloudTrail records API calls and user activity within your AWS account
+
+Q.) Kubernetes alternatives?
+several alternatives exist for deploying applications, including AWS Elastic Beanstalk, Amazon ECS(Containerized applications).
+
+Q.) What Is The Significance Of Amazon DynamoDB In AWS?
+--> Amazon DynamoDB is a service in AWS that is helpful in management of NoSQL database service that known for its scalability and low-latency performance. 
+
+Q.) What Is The Difference Between Vertical and Horizontal Scaling in AWS?
+--> Vertical scaling refers to increasing the capacity of a single virtual machine like upgrading its CPU, RAM, or storage.
+Horizontal scaling means adding more virtual machines to share the load, instead of relying on just one machine. This helps distribute CPU, RAM, and storage usage across multiple instances.
+
+Q.) Worker node vs child node?
+--> In a Kubernetes cluster, master nodes (or control plane nodes) manage the cluster, while worker nodes run the actual applications. Master nodes handle tasks like scheduling, monitoring, and scaling, while worker nodes execute the containerized workloads. 
+
+Q.) is node in kubernetes is ec2 instance?
+--> Yes, a node in Kubernetes can be an Amazon EC2 instance. Kubernetes nodes are the worker node that host and run your containers. These nodes can be physical machines or virtual machines like those provided by Amazon EC2. When using Kubernetes on AWS, you can choose to manage your own Kubernetes cluster on EC2 instances, or use a managed service like Amazon EKS. 
+
